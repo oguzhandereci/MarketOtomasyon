@@ -1,10 +1,6 @@
 ﻿using MarketOtomasyon.Models.Abstracts;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MarketOtomasyon.Models.Entities
 {
@@ -15,8 +11,8 @@ namespace MarketOtomasyon.Models.Entities
         {
             this.Id = Guid.NewGuid();
         }
-        public int KoliAdedi { get; set; }
-        public int Barkod { get; set; }
+        public int PackageQuantity { get; set; }
+        public int Barcode { get; set; }
 
 
     //     [ForeignKey("ProductId")]

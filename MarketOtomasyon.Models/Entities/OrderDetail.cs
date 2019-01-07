@@ -20,7 +20,6 @@ namespace MarketOtomasyon.Models.Entities
         public string ProductName { get; set; }
         [StringLength(50)]
         public string Category { get; set; }
-        public DateTime OrderDate { get; set; }
         public int PackageQuantity { get; set; }
     }
 }

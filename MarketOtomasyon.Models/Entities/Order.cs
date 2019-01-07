@@ -17,10 +17,8 @@ namespace MarketOtomasyon.Models.Entities
             this.Id = Guid.NewGuid();
         }
         public DateTime OrderDate { get; set; } = DateTime.Now;
-        [StringLength(50)]
-        public string Category { get; set; }
+        
         [StringLength(50)]
         public string ProductName { get; set; }
-        public int PackageQuantity { get; set; }
     }
 }

@@ -17,7 +17,7 @@ namespace MarketOtomasyon.Models.Entities
         public string Name { get; set; }
         public string Description { get; set; }
         public Guid? SupCategoryId { get; set; }
-        public decimal KdvOrani { get; set; }
+        public decimal KdvRate { get; set; }
 
 
         //[ForeignKey("SupCategoryId")]
