@@ -16,7 +16,7 @@ namespace MarketOtomasyon.Models.Entities
         [StringLength(120)]
         public string Name { get; set; }
         public string Description { get; set; }
-        public int? SupCategoryId { get; set; }
+        public Guid? SupCategoryId { get; set; }
         public decimal KdvOrani { get; set; }
 
 

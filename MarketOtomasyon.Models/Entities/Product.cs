@@ -23,7 +23,7 @@ namespace MarketOtomasyon.Models.Entities
         public string Barcode { get; set; }
         public decimal BuyPrice { get; set; }
         public decimal SellPrice { get; set; }
-        public int CategoryId { get; set; }
+        public Guid CategoryId { get; set; }
         public decimal StockQuantity { get; set; }
 
 
