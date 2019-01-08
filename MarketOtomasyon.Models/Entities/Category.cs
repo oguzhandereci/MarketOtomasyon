@@ -12,17 +12,18 @@ namespace MarketOtomasyon.Models.Entities
     [Table("Categories")]
     public class Category:BaseEntity<Guid>
     {
+        public Category()
+        {
+            this.Id = Guid.NewGuid();
+        }
         [Required]
         [StringLength(120)]
-        public string Name { get; set; }
+        public string CategoryName { get; set; }
         public string Description { get; set; }
-        public Guid? SupCategoryId { get; set; }
         public decimal KdvRate { get; set; }
 
 
-        //[ForeignKey("SupCategoryId")]
-        //public virtual Category SupCategory { get; set; }
-        //public virtual ICollection<Category> Categories { get; set; } = new HashSet<Category>();
-        //public virtual ICollection<Product> Products { get; set; } = new HashSet<Product>();
+
+        public virtual ICollection<Product> Products { get; set; } = new HashSet<Product>();
     }
 }

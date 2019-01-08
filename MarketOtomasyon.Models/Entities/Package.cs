@@ -11,12 +11,12 @@ namespace MarketOtomasyon.Models.Entities
         {
             this.Id = Guid.NewGuid();
         }
-        public int PackageQuantity { get; set; }
-        public int Barcode { get; set; }
+        public int Type { get; set; }
+        public string Barcode { get; set; }
 
 
-    //     [ForeignKey("ProductId")]
-    //    public virtual Product Product { get; set; }
+        [ForeignKey("ProductId")]
+        public virtual Product Product { get; set; }
     }
 
 }

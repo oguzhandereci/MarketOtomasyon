@@ -48,11 +48,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstracts\BaseEntity.cs" />
+    <Compile Include="Abstracts\BaseEntity2.cs" />
     <Compile Include="Entities\Category.cs" />
     <Compile Include="Entities\Order.cs" />
     <Compile Include="Entities\OrderDetail.cs" />
     <Compile Include="Entities\Package.cs" />
     <Compile Include="Entities\Product.cs" />
+    <Compile Include="Entities\Sale.cs" />
     <Compile Include="Entities\SaleDetail.cs" />
     <Compile Include="Enums\PaymentTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

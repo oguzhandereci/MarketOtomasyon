@@ -10,16 +10,17 @@ using System.Threading.Tasks;
 namespace MarketOtomasyon.Models.Entities
 {
     [Table("OrderDetails")]
-    public class OrderDetail: BaseEntity<Guid>
+    public class OrderDetail: BaseEntity2<Guid, Guid>
     {
-        public OrderDetail()
-        {
-            this.Id = Guid.NewGuid();
-        }
         [StringLength(50)]
         public string ProductName { get; set; }
         [StringLength(50)]
-        public string Category { get; set; }
+        public string Type { get; set; }
         public int PackageQuantity { get; set; }
+
+        [ForeignKey("Id")]
+        public virtual Order Order { get; set; }
+        [ForeignKey("Id2")]
+        public virtual Product Product { get; set; }
     }
 }

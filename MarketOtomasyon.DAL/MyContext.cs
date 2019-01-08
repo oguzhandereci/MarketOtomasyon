@@ -9,9 +9,8 @@ namespace MarketOtomasyon.DAL
 {
     public class MyContext:DbContext
     {
-        public MyContext()
+        public MyContext():base("name=MyCon")
         {
-
         }
     }
 }
