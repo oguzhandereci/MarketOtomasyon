@@ -13,6 +13,7 @@ namespace MarketOtomasyon.Models.Entities
             this.Id = Guid.NewGuid();
         }
         public int Type { get; set; }
+        [Index("IX_Barcode", IsUnique = true)]
         public string Barcode { get; set; }
         public Guid ProductId { get; set; }
         public decimal BuyPrice { get; set; }

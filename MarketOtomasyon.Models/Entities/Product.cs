@@ -20,9 +20,10 @@ namespace MarketOtomasyon.Models.Entities
         [StringLength(100)]
         [Required]
         public string ProductName { get; set; }
+        [Index("IX_Barcode",IsUnique =true)]
         public string Barcode { get; set; }
         public decimal SellPrice { get; set; }
-        public decimal StockQuantity { get; set; }
+        public decimal? StockQuantity { get; set; }
         public Guid CategoryId { get; set; }
 
 
