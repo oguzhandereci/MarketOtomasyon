@@ -15,7 +15,6 @@ namespace MarketOtomasyon.Models.Entities
     {
         public string ProductName { get; set; }
         public int Quantity { get; set; }
-        public PaymentTypes PaymentTypes { get; set; }
 
 
         [ForeignKey("Id")]

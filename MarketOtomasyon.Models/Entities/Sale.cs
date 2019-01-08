@@ -1,4 +1,5 @@
 ﻿using MarketOtomasyon.Models.Abstracts;
+using MarketOtomasyon.Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,8 @@ namespace MarketOtomasyon.Models.Entities
             this.Id = Guid.NewGuid();
         }
         public DateTime SaleDate { get; set; }
+
+        public PaymentTypes PaymentTypes { get; set; }
 
         public virtual ICollection<SaleDetail> SaleDetails { get; set; } = new HashSet<SaleDetail>();
     }

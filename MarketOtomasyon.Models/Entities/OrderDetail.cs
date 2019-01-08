@@ -21,6 +21,6 @@ namespace MarketOtomasyon.Models.Entities
         [ForeignKey("Id")]
         public virtual Order Order { get; set; }
         [ForeignKey("Id2")]
-        public virtual Product Product { get; set; }
+        public virtual Package Package { get; set; }
     }
 }
