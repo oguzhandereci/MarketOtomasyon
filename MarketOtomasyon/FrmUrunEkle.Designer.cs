@@ -42,8 +42,8 @@
             this.btnAddCategory = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.txtProductCategory = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.nuKDV)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -65,7 +65,7 @@
             // 
             // txtSellPrice
             // 
-            this.txtSellPrice.Location = new System.Drawing.Point(102, 113);
+            this.txtSellPrice.Location = new System.Drawing.Point(103, 113);
             this.txtSellPrice.Name = "txtSellPrice";
             this.txtSellPrice.Size = new System.Drawing.Size(100, 20);
             this.txtSellPrice.TabIndex = 2;
@@ -150,7 +150,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.txtProductCategory);
+            this.groupBox1.Controls.Add(this.comboBox1);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.txtProduct);
@@ -180,13 +180,6 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Kategori Ekle";
             // 
-            // txtProductCategory
-            // 
-            this.txtProductCategory.Location = new System.Drawing.Point(102, 47);
-            this.txtProductCategory.Name = "txtProductCategory";
-            this.txtProductCategory.Size = new System.Drawing.Size(100, 20);
-            this.txtProductCategory.TabIndex = 11;
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -195,6 +188,14 @@
             this.label6.Size = new System.Drawing.Size(46, 13);
             this.label6.TabIndex = 12;
             this.label6.Text = "Kategori";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(103, 47);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(100, 21);
+            this.comboBox1.TabIndex = 13;
             // 
             // FrmUrunEkle
             // 
@@ -230,7 +231,7 @@
         private System.Windows.Forms.Button btnAddCategory;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox txtProductCategory;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }
