@@ -24,6 +24,7 @@ namespace MarketOtomasyon.Models.Entities
         public decimal BuyPrice { get; set; }
         public decimal SellPrice { get; set; }
         public decimal StockQuantity { get; set; }
+        public Guid CategoryId { get; set; }
 
 
 

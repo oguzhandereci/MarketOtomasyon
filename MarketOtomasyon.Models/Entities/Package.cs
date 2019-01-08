@@ -13,6 +13,7 @@ namespace MarketOtomasyon.Models.Entities
         }
         public int Type { get; set; }
         public string Barcode { get; set; }
+        public Guid ProductId { get; set; }
 
 
         [ForeignKey("ProductId")]
