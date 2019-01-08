@@ -21,23 +21,42 @@ namespace MarketOtomasyon
 
         private void btnAddCategory_Click(object sender, EventArgs e)
         {
+            List<Category> categories = new CategoryRepo().GetAll(); 
+            bool varMi = false;
             try
             {
-                var categories = new CategoryRepo().GetAll();
-                bool varMi = false;
-                foreach (var cat in categories)
+                if (categories.Count == 0)
                 {
-                    if (cat.CategoryName != txtCategory.Text)
+                    new CategoryRepo().Insert(new Category()
                     {
-                        //new CategoryRepo().Insert(new Category()
-                        //{
-                        //    CategoryName = txtCategory.Text,
-                        //    KdvRate = nuKDV.Value
-                        //});
+                        CategoryName = txtCategory.Text,
+                        KdvRate = nuKDV.Value
+                    });
+                    MessageBox.Show("Kategori ekleme islemi basarili");
+                }
+                else
+                {
+
+                    foreach (var cat in categories)
+                    {
+                        if (cat.CategoryName == txtCategory.Text)
+                            varMi = true;
+                    }
+
+                    if (!varMi)
+                    {
+                        new CategoryRepo().Insert(new Category()
+                        {
+                            CategoryName = txtCategory.Text,
+                            KdvRate = nuKDV.Value
+                        });
+                        MessageBox.Show("Kategori ekleme islemi basarili");
                     }
                     else
                         throw new Exception("Bu isimde bir kategori bulunmaktadir");
                 }
+
+                
             }
             catch (Exception ex)
             {

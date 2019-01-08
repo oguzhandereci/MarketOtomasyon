@@ -1,6 +1,7 @@
 ﻿using MarketOtomasyon.Models.Abstracts;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MarketOtomasyon.Models.Entities
@@ -13,7 +14,10 @@ namespace MarketOtomasyon.Models.Entities
             this.Id = Guid.NewGuid();
         }
         public int Type { get; set; }
-        [Index("IX_Barcode", IsUnique = true)]
+
+        [Required]
+        [StringLength(20, ErrorMessage = "Barkod numarasi 20 karakterden fazla olamaz")]
+        [Index("IX_PackageBarcode", IsUnique = true)]
         public string Barcode { get; set; }
         public Guid ProductId { get; set; }
         public decimal BuyPrice { get; set; }

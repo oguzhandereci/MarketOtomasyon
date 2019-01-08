@@ -20,7 +20,10 @@ namespace MarketOtomasyon.Models.Entities
         [StringLength(100)]
         [Required]
         public string ProductName { get; set; }
-        [Index("IX_Barcode",IsUnique =true)]
+
+        [Required]
+        [StringLength(20, ErrorMessage = "Barkod numarasi 20 karakterden fazla olamaz")]
+        [Index("IX_ProductBarcode",IsUnique =true)]
         public string Barcode { get; set; }
         public decimal SellPrice { get; set; }
         public decimal? StockQuantity { get; set; }
