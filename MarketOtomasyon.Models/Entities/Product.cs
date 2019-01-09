@@ -1,4 +1,5 @@
 ﻿using MarketOtomasyon.Models.Abstracts;
+using MarketOtomasyon.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
