@@ -59,7 +59,7 @@
     <Compile Include="Enums\PaymentTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\CmbCategoryViewModel.cs" />
-    <Compile Include="Views\CategoryViewModel.cs" />
+    <Compile Include="ViewModels\CategoryViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
