@@ -140,5 +140,27 @@ namespace MarketOtomasyon
             lstProducts.DataSource = products;
             GetCategories();
         }
+
+        private void lstCategories_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lstCategories.SelectedItem == null) return;
+
+            var selectedCat = lstCategories.SelectedItem as CategoryViewModel;
+            //lstProducts.DataSource = new ProductRepo()
+            //    .GetAll(x => x.CategoryId == selectedCat.Id)
+            //    .OrderBy(x => x.ProductName)
+            //    .Select(x => new ProductViewModel()
+            //    {
+            //        Name = x.Name,
+            //        Id = x.Id,
+            //        CategoryId = x.CategoryId,
+            //        IsActive = x.IsActive,
+            //        Price = x.Price
+            //    })
+            //    .ToList();
+
+
+        }
+        }
     }
 }

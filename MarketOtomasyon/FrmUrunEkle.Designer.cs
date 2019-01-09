@@ -216,6 +216,7 @@
             this.lstCategories.Name = "lstCategories";
             this.lstCategories.Size = new System.Drawing.Size(174, 329);
             this.lstCategories.TabIndex = 14;
+            this.lstCategories.SelectedIndexChanged += new System.EventHandler(this.lstCategories_SelectedIndexChanged);
             // 
             // contextMenuStrip1
             // 
