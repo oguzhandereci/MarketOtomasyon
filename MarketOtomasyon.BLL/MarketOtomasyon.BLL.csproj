@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CategoryRepo.cs" />
+    <Compile Include="Repositories\PackageRepo.cs" />
     <Compile Include="Repositories\ProductRepo.cs" />
     <Compile Include="Repositories\RepositoryBase.cs" />
   </ItemGroup>
