@@ -78,7 +78,7 @@ namespace MarketOtomasyon
             {
                 Product product = new Product()
                 {
-                    CategoryId = (cmbCategory.SelectedItem as CmbCategoryViewModel).Id,
+                    CategoryId = (cmbCategory.SelectedItem as CategoryViewModel).Id,
                     ProductName = txtProduct.Text,
                     Barcode = txtBarcode.Text,
                     SellPrice = Convert.ToDecimal(txtSellPrice.Text)
@@ -103,61 +103,54 @@ namespace MarketOtomasyon
 
         private void GetCategories()
         {
-            var categories = new CategoryRepo().GetAll()
-                                               .OrderBy(x => x.CategoryName)
-                                               .Select(x => new CategoryViewModel()
-                                               {
-                                                   Id = x.Id,
-                                                   Name = x.CategoryName,
-                                                   KdvRate = x.KdvRate
 
-                                               }).ToList();
-
-            lstCategories.DataSource = categories;
-
-        }
-
-        private void FrmUrunEkle_Load_1(object sender, EventArgs e)
-        {
-            List<CmbCategoryViewModel> categories = new List<CmbCategoryViewModel>();
             List<ProductViewModel> products = new List<ProductViewModel>();
             try
             {
+                var categories = new CategoryRepo().GetAll()
+                                                      .OrderBy(x => x.CategoryName)
+                                                      .Select(x => new CategoryViewModel()
+                                                      {
+                                                          Id = x.Id,
+                                                          Name = x.CategoryName,
+                                                          KdvRate = x.KdvRate
+
+                                                      }).ToList();
                 products.AddRange(new ProductRepo().GetAll()
-                    .OrderBy(x => x.ProductName)
-                    .Select(x => new ProductViewModel()
-                    {
-                        Id = x.Id,
-                        ProductName = x.ProductName,
-                        SellPrice = x.SellPrice,
-                        StockQuantity = x.StockQuantity,
-                        Barcode = x.Barcode
-                    }));
-                categories.AddRange(new CategoryRepo().GetAll()
-                    .OrderBy(x => x.CategoryName)
-                    .Select(x => new CmbCategoryViewModel()
-                    {
-                        Id = x.Id,
-                        CategoryName = x.CategoryName
-                    }));
+                       .OrderBy(x => x.ProductName)
+                       .Select(x => new ProductViewModel()
+                       {
+                           Id = x.Id,
+                           ProductName = x.ProductName,
+                           SellPrice = x.SellPrice,
+                           StockQuantity = x.StockQuantity,
+                           Barcode = x.Barcode
+                       }));
+
+                lstCategories.DataSource = categories;
+                lstProducts.DataSource = products;
+                cmbCategory.DataSource = categories;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-            cmbCategory.DataSource = categories;
-            lstCategories.DataSource = categories;
-            lstProducts.DataSource = products;
+
+        }
+
+        private void FrmUrunEkle_Load_1(object sender, EventArgs e)
+        {
+            lstCategories.SelectedItem = null;
             GetCategories();
         }
 
         private void lstCategories_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (lstCategories.SelectedItem == null) return;
-
-            var selectedCat = lstCategories.SelectedItem as CategoryViewModel;
+            
+            var selectedCat = lstCategories.SelectedItem;
             lstProducts.DataSource = new ProductRepo()
-                .GetAll(x => x.CategoryId == selectedCat.Id)
+                .GetAll(x => x.CategoryId == (selectedCat as CategoryViewModel).Id)
                 .OrderBy(x => x.ProductName)
                 .Select(x => new ProductViewModel()
                 {
