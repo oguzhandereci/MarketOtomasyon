@@ -58,6 +58,7 @@
     <Compile Include="Entities\SaleDetail.cs" />
     <Compile Include="Enums\PaymentTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\CmbCategoryViewModel.cs" />
     <Compile Include="Views\CategoryViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

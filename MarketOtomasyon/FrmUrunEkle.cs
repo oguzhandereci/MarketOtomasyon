@@ -1,6 +1,6 @@
 ﻿using MarketOtomasyon.BLL.Repositories;
 using MarketOtomasyon.Models.Entities;
-using MarketOtomasyon.Models.Views;
+using MarketOtomasyon.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -29,7 +29,7 @@ namespace MarketOtomasyon
 
         private void btnAddCategory_Click(object sender, EventArgs e)
         {
-            List<Category> categories = new CategoryRepo().GetAll(); 
+            List<Category> categories = new CategoryRepo().GetAll();
             bool varMi = false;
             try
             {
@@ -70,33 +70,56 @@ namespace MarketOtomasyon
             {
                 MessageBox.Show(ex.Message);
             }
-            GetCategories();
-            //lstCategories.DataSource = new CategoryRepo().GetAll();
         }
-        private void GetCategories()
+        private void btnAddProduct_Click(object sender, EventArgs e)
         {
-            var categories = new CategoryRepo().GetAll()
-                                               .OrderBy(x => x.CategoryName)
-                                               .Select(x => new CategoryViewModel()
-                                               {
-                                                   Id = x.Id,
-                                                   Name = x.CategoryName,
-                                                   KdvRate = x.KdvRate
+            if (txtProduct.Text == null || cmbCategory.SelectedItem == null || txtBarcode.Text==null || txtSellPrice.Text==null) return;
 
-                                               }).ToList();
-
-            lstCategories.DataSource = categories;
-
+            List<Product> products = new ProductRepo().GetAll();
+            try
+            {
+                Product product = new Product()
+                {
+                    CategoryId = (cmbCategory.SelectedItem as CmbCategoryViewModel).Id,
+                    ProductName = txtProduct.Text,
+                    Barcode = txtBarcode.Text,
+                    SellPrice = Convert.ToDecimal(txtSellPrice.Text)
+                };
+                
+                using (var productRepo = new ProductRepo())
+                {
+                    foreach (var item in products)
+                    {
+                        if (product.Barcode == item.Barcode) throw new Exception("Aynı barkoda sahip ürününz var");
+                        if (item.CategoryId == product.CategoryId && item.ProductName == product.ProductName) throw new Exception("Bu kategoride bu isimde bir ürün bulunmaktadir");
+                    }
+                    productRepo.Insert(product);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
-        private void güncelleToolStripMenuItem_Click(object sender, EventArgs e)
+        private void FrmUrunEkle_Load(object sender, EventArgs e)
         {
-
-        }
-
-        private void silToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
+            List<CmbCategoryViewModel> categories=new List<CmbCategoryViewModel>();
+            try
+            {
+                categories.AddRange(new CategoryRepo().GetAll()
+                    .OrderBy(x => x.CategoryName)
+                    .Select(x => new CmbCategoryViewModel()
+                    {
+                         Id=x.Id,
+                         CategoryName=x.CategoryName
+                    }));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            cmbCategory.DataSource = categories;
         }
     }
 }
