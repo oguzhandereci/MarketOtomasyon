@@ -1,5 +1,6 @@
 ﻿using MarketOtomasyon.BLL.Repositories;
 using MarketOtomasyon.Models.Entities;
+using MarketOtomasyon.Models.Views;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,6 +19,13 @@ namespace MarketOtomasyon
         {
             InitializeComponent();
         }
+        private void FrmUrunEkle_Load(object sender, EventArgs e)
+        {
+            //lstCategories.DataSource = new CategoryRepo().GetAll();
+            GetCategories();
+        }
+
+        
 
         private void btnAddCategory_Click(object sender, EventArgs e)
         {
@@ -62,6 +70,33 @@ namespace MarketOtomasyon
             {
                 MessageBox.Show(ex.Message);
             }
+            GetCategories();
+            //lstCategories.DataSource = new CategoryRepo().GetAll();
+        }
+        private void GetCategories()
+        {
+            var categories = new CategoryRepo().GetAll()
+                                               .OrderBy(x => x.CategoryName)
+                                               .Select(x => new CategoryViewModel()
+                                               {
+                                                   Id = x.Id,
+                                                   Name = x.CategoryName,
+                                                   KdvRate = x.KdvRate
+
+                                               }).ToList();
+
+            lstCategories.DataSource = categories;
+
+        }
+
+        private void güncelleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void silToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
