@@ -21,8 +21,7 @@ namespace MarketOtomasyon
             InitializeComponent();
         }
 
-
-
+        
         private void btnAddCategory_Click(object sender, EventArgs e)
         {
             List<Category> categories = new CategoryRepo().GetAll();
@@ -144,13 +143,14 @@ namespace MarketOtomasyon
             GetCategories();
         }
 
+        static object selected;
         private void lstCategories_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (lstCategories.SelectedItem == null) return;
             
-            var selectedCat = lstCategories.SelectedItem;
+            selected = lstCategories.SelectedItem;
             lstProducts.DataSource = new ProductRepo()
-                .GetAll(x => x.CategoryId == (selectedCat as CategoryViewModel).Id)
+                .GetAll(x => x.CategoryId == (selected as CategoryViewModel).Id)
                 .OrderBy(x => x.ProductName)
                 .Select(x => new ProductViewModel()
                 {
@@ -160,10 +160,63 @@ namespace MarketOtomasyon
                         SellPrice = x.SellPrice,
                          StockQuantity = x.StockQuantity
                 })
-                .ToList();
+                .ToList();                                                                                                                     
+        }
+        CategoryViewModel ct = new CategoryViewModel();
+        private void güncelleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (selected is CategoryViewModel)
+            {
+                var selectedCat = selected as CategoryViewModel;
+                txtCategory.Text = selectedCat.Name;
+                nuKDV.Value = selectedCat.KdvRate;
+                btnAddCategory.Visible = false;
+                btnGuncelle.Visible = true;
+                btnGuncelle.Enabled = true;
+                ct = selectedCat;
+            }
+            
+            else if (selected is ProductViewModel)
+            {
 
+            }
+        }
 
-        
+        private void silToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void btnGuncelle_Click(object sender, EventArgs e)
+        {
+            var catRepo = new CategoryRepo();
+            var sonuc = catRepo.GetById(ct.Id);
+            sonuc.KdvRate = nuKDV.Value;
+            sonuc.CategoryName = txtCategory.Text;
+            
+            catRepo.Update();
+            //try
+            //{
+
+            //    using (var CategoryRepo = new CategoryRepo())
+            //    {
+            //        var Sonuc = new ProductRepo()
+            //            .GetAll()
+            //            .FirstOrDefault();
+
+            //        txtCategory.Text = Sonuc.Category.CategoryName;
+            //        foreach (var item in products)
+            //        {
+            //            if (product.Barcode == item.Barcode) throw new Exception("Aynı barkoda sahip ürününz var");
+            //            if (item.CategoryId == product.CategoryId && item.ProductName == product.ProductName) throw new Exception("Bu kategoride bu isimde bir ürün bulunmaktadir");
+            //        }
+            //        productRepo.Insert(product);
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //}
         }
     }
 }

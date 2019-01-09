@@ -41,10 +41,10 @@
             this.label5 = new System.Windows.Forms.Label();
             this.btnAddProduct = new System.Windows.Forms.Button();
             this.btnAddCategory = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.gpAddProduct = new System.Windows.Forms.GroupBox();
             this.cmbCategory = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.gpAddCategory = new System.Windows.Forms.GroupBox();
             this.lstCategories = new System.Windows.Forms.ListBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.güncelleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,9 +52,11 @@
             this.lstProducts = new System.Windows.Forms.ListBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
+            this.btnGuncelle = new System.Windows.Forms.Button();
+            this.btnSil = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nuKDV)).BeginInit();
-            this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.gpAddProduct.SuspendLayout();
+            this.gpAddCategory.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -151,7 +153,7 @@
             // 
             // btnAddCategory
             // 
-            this.btnAddCategory.Location = new System.Drawing.Point(9, 91);
+            this.btnAddCategory.Location = new System.Drawing.Point(9, 83);
             this.btnAddCategory.Name = "btnAddCategory";
             this.btnAddCategory.Size = new System.Drawing.Size(221, 23);
             this.btnAddCategory.TabIndex = 11;
@@ -159,23 +161,23 @@
             this.btnAddCategory.UseVisualStyleBackColor = true;
             this.btnAddCategory.Click += new System.EventHandler(this.btnAddCategory_Click);
             // 
-            // groupBox1
+            // gpAddProduct
             // 
-            this.groupBox1.Controls.Add(this.cmbCategory);
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.txtProduct);
-            this.groupBox1.Controls.Add(this.btnAddProduct);
-            this.groupBox1.Controls.Add(this.txtBarcode);
-            this.groupBox1.Controls.Add(this.txtSellPrice);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Location = new System.Drawing.Point(6, 14);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(241, 171);
-            this.groupBox1.TabIndex = 12;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Ürün Ekle";
+            this.gpAddProduct.Controls.Add(this.cmbCategory);
+            this.gpAddProduct.Controls.Add(this.label6);
+            this.gpAddProduct.Controls.Add(this.label1);
+            this.gpAddProduct.Controls.Add(this.txtProduct);
+            this.gpAddProduct.Controls.Add(this.btnAddProduct);
+            this.gpAddProduct.Controls.Add(this.txtBarcode);
+            this.gpAddProduct.Controls.Add(this.txtSellPrice);
+            this.gpAddProduct.Controls.Add(this.label2);
+            this.gpAddProduct.Controls.Add(this.label3);
+            this.gpAddProduct.Location = new System.Drawing.Point(6, 14);
+            this.gpAddProduct.Name = "gpAddProduct";
+            this.gpAddProduct.Size = new System.Drawing.Size(241, 171);
+            this.gpAddProduct.TabIndex = 12;
+            this.gpAddProduct.TabStop = false;
+            this.gpAddProduct.Text = "Ürün Ekle";
             // 
             // cmbCategory
             // 
@@ -194,19 +196,21 @@
             this.label6.TabIndex = 12;
             this.label6.Text = "Kategori";
             // 
-            // groupBox2
+            // gpAddCategory
             // 
-            this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Controls.Add(this.txtCategory);
-            this.groupBox2.Controls.Add(this.btnAddCategory);
-            this.groupBox2.Controls.Add(this.nuKDV);
-            this.groupBox2.Controls.Add(this.label5);
-            this.groupBox2.Location = new System.Drawing.Point(6, 200);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(241, 171);
-            this.groupBox2.TabIndex = 13;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Kategori Ekle";
+            this.gpAddCategory.Controls.Add(this.label4);
+            this.gpAddCategory.Controls.Add(this.txtCategory);
+            this.gpAddCategory.Controls.Add(this.btnSil);
+            this.gpAddCategory.Controls.Add(this.btnGuncelle);
+            this.gpAddCategory.Controls.Add(this.btnAddCategory);
+            this.gpAddCategory.Controls.Add(this.nuKDV);
+            this.gpAddCategory.Controls.Add(this.label5);
+            this.gpAddCategory.Location = new System.Drawing.Point(6, 200);
+            this.gpAddCategory.Name = "gpAddCategory";
+            this.gpAddCategory.Size = new System.Drawing.Size(241, 171);
+            this.gpAddCategory.TabIndex = 13;
+            this.gpAddCategory.TabStop = false;
+            this.gpAddCategory.Text = "Kategori Ekle";
             // 
             // lstCategories
             // 
@@ -231,12 +235,14 @@
             this.güncelleToolStripMenuItem.Name = "güncelleToolStripMenuItem";
             this.güncelleToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
             this.güncelleToolStripMenuItem.Text = "Güncelle";
+            this.güncelleToolStripMenuItem.Click += new System.EventHandler(this.güncelleToolStripMenuItem_Click);
             // 
             // silToolStripMenuItem
             // 
             this.silToolStripMenuItem.Name = "silToolStripMenuItem";
             this.silToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
             this.silToolStripMenuItem.Text = "Sil";
+            this.silToolStripMenuItem.Click += new System.EventHandler(this.silToolStripMenuItem_Click);
             // 
             // lstProducts
             // 
@@ -269,6 +275,29 @@
             this.label8.TabIndex = 15;
             this.label8.Text = "Kayıtlı Ürünler";
             // 
+            // btnGuncelle
+            // 
+            this.btnGuncelle.Enabled = false;
+            this.btnGuncelle.Location = new System.Drawing.Point(9, 112);
+            this.btnGuncelle.Name = "btnGuncelle";
+            this.btnGuncelle.Size = new System.Drawing.Size(221, 23);
+            this.btnGuncelle.TabIndex = 11;
+            this.btnGuncelle.Text = "Güncelle";
+            this.btnGuncelle.UseVisualStyleBackColor = true;
+            this.btnGuncelle.Visible = false;
+            this.btnGuncelle.Click += new System.EventHandler(this.btnGuncelle_Click);
+            // 
+            // btnSil
+            // 
+            this.btnSil.Enabled = false;
+            this.btnSil.Location = new System.Drawing.Point(8, 141);
+            this.btnSil.Name = "btnSil";
+            this.btnSil.Size = new System.Drawing.Size(221, 23);
+            this.btnSil.TabIndex = 11;
+            this.btnSil.Text = "Sil";
+            this.btnSil.UseVisualStyleBackColor = true;
+            this.btnSil.Visible = false;
+            // 
             // FrmUrunEkle
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -278,16 +307,16 @@
             this.Controls.Add(this.label7);
             this.Controls.Add(this.lstProducts);
             this.Controls.Add(this.lstCategories);
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.gpAddCategory);
+            this.Controls.Add(this.gpAddProduct);
             this.Name = "FrmUrunEkle";
             this.Text = "FrmUrunEkle";
             this.Load += new System.EventHandler(this.FrmUrunEkle_Load_1);
             ((System.ComponentModel.ISupportInitialize)(this.nuKDV)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.gpAddProduct.ResumeLayout(false);
+            this.gpAddProduct.PerformLayout();
+            this.gpAddCategory.ResumeLayout(false);
+            this.gpAddCategory.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -308,8 +337,8 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnAddProduct;
         private System.Windows.Forms.Button btnAddCategory;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox gpAddProduct;
+        private System.Windows.Forms.GroupBox gpAddCategory;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.ListBox lstCategories;
@@ -320,5 +349,7 @@
         private System.Windows.Forms.ToolStripMenuItem güncelleToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem silToolStripMenuItem;
         private System.Windows.Forms.ComboBox cmbCategory;
+        private System.Windows.Forms.Button btnSil;
+        private System.Windows.Forms.Button btnGuncelle;
     }
 }
