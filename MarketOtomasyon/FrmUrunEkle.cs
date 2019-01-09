@@ -100,26 +100,6 @@ namespace MarketOtomasyon
             }
         }
 
-        private void FrmUrunEkle_Load(object sender, EventArgs e)
-        {
-            List<CmbCategoryViewModel> categories=new List<CmbCategoryViewModel>();
-            try
-            {
-                categories.AddRange(new CategoryRepo().GetAll()
-                    .OrderBy(x => x.CategoryName)
-                    .Select(x => new CmbCategoryViewModel()
-                    {
-                         Id=x.Id,
-                         CategoryName=x.CategoryName
-                    }));
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            cmbCategory.DataSource = categories;
-            GetCategories();
-        }
 
         private void GetCategories()
         {
@@ -135,6 +115,30 @@ namespace MarketOtomasyon
 
             lstCategories.DataSource = categories;
 
+        }
+
+        private void FrmUrunEkle_Load_1(object sender, EventArgs e)
+        {
+            List<CmbCategoryViewModel> categories = new List<CmbCategoryViewModel>();
+            List<Product> products = new ProductRepo().GetAll();
+            try
+            {
+                categories.AddRange(new CategoryRepo().GetAll()
+                    .OrderBy(x => x.CategoryName)
+                    .Select(x => new CmbCategoryViewModel()
+                    {
+                        Id = x.Id,
+                        CategoryName = x.CategoryName
+                    }));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            cmbCategory.DataSource = categories;
+            lstCategories.DataSource = categories;
+            lstProducts.DataSource = products;
+            GetCategories();
         }
     }
 }
