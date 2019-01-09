@@ -85,6 +85,7 @@
             this.txtBarcodePackage.Name = "txtBarcodePackage";
             this.txtBarcodePackage.Size = new System.Drawing.Size(120, 20);
             this.txtBarcodePackage.TabIndex = 4;
+            this.txtBarcodePackage.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBarcodePackage_KeyDown);
             // 
             // txtBarcodeProduct
             // 
@@ -92,6 +93,7 @@
             this.txtBarcodeProduct.Name = "txtBarcodeProduct";
             this.txtBarcodeProduct.Size = new System.Drawing.Size(120, 20);
             this.txtBarcodeProduct.TabIndex = 5;
+            this.txtBarcodeProduct.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBarcodeProduct_KeyDown);
             // 
             // txtBuyPrice
             // 
