@@ -1,15 +1,12 @@
 ﻿using MarketOtomasyon.BLL.Repositories;
+using MarketOtomasyon.Helpers;
 using MarketOtomasyon.Models.Entities;
 using MarketOtomasyon.Models.ViewModels;
 using MarketOtomasyon.Models.Views;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MarketOtomasyon
@@ -21,7 +18,8 @@ namespace MarketOtomasyon
             InitializeComponent();
         }
 
-        
+
+        ClearHelper ch = new ClearHelper();
         private void btnAddCategory_Click(object sender, EventArgs e)
         {
             List<Category> categories = new CategoryRepo().GetAll();
@@ -54,6 +52,7 @@ namespace MarketOtomasyon
                             KdvRate = nuKDV.Value
                         });
                         MessageBox.Show("Kategori ekleme islemi basarili");
+                        ch.FormClearHelper(this, gpAddCategory);
                     }
                     else
                         throw new Exception("Bu isimde bir kategori bulunmaktadir");
@@ -91,6 +90,8 @@ namespace MarketOtomasyon
                         if (item.CategoryId == product.CategoryId && item.ProductName == product.ProductName) throw new Exception("Bu kategoride bu isimde bir ürün bulunmaktadir");
                     }
                     productRepo.Insert(product);
+                    MessageBox.Show("Kayıt işlemi başarılı");
+                    ch.FormClearHelper(this,gpAddProduct);
                 }
             }
             catch (Exception ex)

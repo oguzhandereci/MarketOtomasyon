@@ -45,6 +45,8 @@
             this.cmbCategory = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.gpAddCategory = new System.Windows.Forms.GroupBox();
+            this.btnSil = new System.Windows.Forms.Button();
+            this.btnGuncelle = new System.Windows.Forms.Button();
             this.lstCategories = new System.Windows.Forms.ListBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.güncelleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,8 +54,6 @@
             this.lstProducts = new System.Windows.Forms.ListBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.btnGuncelle = new System.Windows.Forms.Button();
-            this.btnSil = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nuKDV)).BeginInit();
             this.gpAddProduct.SuspendLayout();
             this.gpAddCategory.SuspendLayout();
@@ -212,6 +212,29 @@
             this.gpAddCategory.TabStop = false;
             this.gpAddCategory.Text = "Kategori Ekle";
             // 
+            // btnSil
+            // 
+            this.btnSil.Enabled = false;
+            this.btnSil.Location = new System.Drawing.Point(8, 141);
+            this.btnSil.Name = "btnSil";
+            this.btnSil.Size = new System.Drawing.Size(221, 23);
+            this.btnSil.TabIndex = 11;
+            this.btnSil.Text = "Sil";
+            this.btnSil.UseVisualStyleBackColor = true;
+            this.btnSil.Visible = false;
+            // 
+            // btnGuncelle
+            // 
+            this.btnGuncelle.Enabled = false;
+            this.btnGuncelle.Location = new System.Drawing.Point(9, 112);
+            this.btnGuncelle.Name = "btnGuncelle";
+            this.btnGuncelle.Size = new System.Drawing.Size(221, 23);
+            this.btnGuncelle.TabIndex = 11;
+            this.btnGuncelle.Text = "Güncelle";
+            this.btnGuncelle.UseVisualStyleBackColor = true;
+            this.btnGuncelle.Visible = false;
+            this.btnGuncelle.Click += new System.EventHandler(this.btnGuncelle_Click);
+            // 
             // lstCategories
             // 
             this.lstCategories.ContextMenuStrip = this.contextMenuStrip1;
@@ -275,29 +298,6 @@
             this.label8.TabIndex = 15;
             this.label8.Text = "Kayıtlı Ürünler";
             // 
-            // btnGuncelle
-            // 
-            this.btnGuncelle.Enabled = false;
-            this.btnGuncelle.Location = new System.Drawing.Point(9, 112);
-            this.btnGuncelle.Name = "btnGuncelle";
-            this.btnGuncelle.Size = new System.Drawing.Size(221, 23);
-            this.btnGuncelle.TabIndex = 11;
-            this.btnGuncelle.Text = "Güncelle";
-            this.btnGuncelle.UseVisualStyleBackColor = true;
-            this.btnGuncelle.Visible = false;
-            this.btnGuncelle.Click += new System.EventHandler(this.btnGuncelle_Click);
-            // 
-            // btnSil
-            // 
-            this.btnSil.Enabled = false;
-            this.btnSil.Location = new System.Drawing.Point(8, 141);
-            this.btnSil.Name = "btnSil";
-            this.btnSil.Size = new System.Drawing.Size(221, 23);
-            this.btnSil.TabIndex = 11;
-            this.btnSil.Text = "Sil";
-            this.btnSil.UseVisualStyleBackColor = true;
-            this.btnSil.Visible = false;
-            // 
             // FrmUrunEkle
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -311,6 +311,7 @@
             this.Controls.Add(this.gpAddProduct);
             this.Name = "FrmUrunEkle";
             this.Text = "FrmUrunEkle";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.FrmUrunEkle_Load_1);
             ((System.ComponentModel.ISupportInitialize)(this.nuKDV)).EndInit();
             this.gpAddProduct.ResumeLayout(false);

@@ -13,7 +13,7 @@ namespace MarketOtomasyon.Models.Entities
         {
             this.Id = Guid.NewGuid();
         }
-        public int Type { get; set; }
+        public decimal PackageType { get; set; }
 
         [Required]
         [StringLength(20, ErrorMessage = "Barkod numarasi 20 karakterden fazla olamaz")]

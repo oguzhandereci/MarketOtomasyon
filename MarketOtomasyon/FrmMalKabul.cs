@@ -1,4 +1,5 @@
 ﻿using MarketOtomasyon.BLL.Repositories;
+using MarketOtomasyon.Helpers;
 using MarketOtomasyon.Models.Entities;
 using MarketOtomasyon.Models.ViewModels;
 using System;
@@ -15,14 +16,13 @@ namespace MarketOtomasyon
 {
     public partial class FrmMalKabul : Form
     {
-       FrmMalKabul frmMalKabul;
-        FrmUrunEkle frmUrunEkle;
+        FrmUrunEkle frmUrunEkle = new FrmUrunEkle();
 
         public FrmMalKabul()
         {
             InitializeComponent();
         }
-
+        ClearHelper ch = new ClearHelper();
         private void FrmMalKabul_Load(object sender, EventArgs e)
         {
 
@@ -33,29 +33,40 @@ namespace MarketOtomasyon
             if (txtBarcodePackage.Text == null) return;
             if (e.KeyCode == Keys.Enter)
             {
+                bool varMi = false;
                 List<PackageViewModel> packages = new List<PackageViewModel>();
                 try
                 {
                     packages.AddRange(new PackageRepo().GetAll()
-                       .OrderBy(x => x.Type)
+                       .OrderBy(x => x.PackageType)
                        .Select(x => new PackageViewModel()
                        {
                            Id = x.Id,
-                           Type = x.Type,
+                           PackageType = x.PackageType,
                            Barcode = x.Barcode,
                            BuyPrice = x.BuyPrice,
                            ProductId = x.ProductId
                        }));
+                    if (packages.Count == 0) MessageBox.Show("Lütfen önce ürün barkodu girin");
+                    var sonuc = new PackageRepo().GetAll(x => x.Barcode == txtBarcodePackage.Text).FirstOrDefault();
                     foreach (var item in packages)
                     {
+
                         if (item.Barcode == txtBarcodePackage.Text)
                         {
-                            var sonuc = new PackageRepo().GetAll(x => x.Barcode == txtBarcodePackage.Text).FirstOrDefault();
+
                             txtCategory.Text = sonuc.Product.Category.CategoryName;
                             txtProduct.Text = sonuc.Product.ProductName;
-                            nuPackageQuantity.Value = sonuc.Type;
+                            nuPackageQuantity.Value = sonuc.PackageType;
+                            varMi = true;
+                            break;
                         }
-                        else { MessageBox.Show("Lütfen Ürün barkodunu giriniz"); }
+                    }
+                    if (varMi == false)
+                    {
+                        MessageBox.Show("Lütfen Ürün barkodunu giriniz");
+
+                        ch.FormClearHelper(this);
                     }
 
 
@@ -75,6 +86,7 @@ namespace MarketOtomasyon
                 List<ProductViewModel> products = new List<ProductViewModel>();
                 try
                 {
+                    bool varMi = false;
                     products.AddRange(new ProductRepo().GetAll()
                        .OrderBy(x => x.ProductName)
                        .Select(x => new ProductViewModel()
@@ -86,6 +98,7 @@ namespace MarketOtomasyon
                            StockQuantity = x.StockQuantity
 
                        }));
+                    if (products.Count == 0) { MessageBox.Show("Önce Ürün Ekleeyiniz"); frmUrunEkle.ShowDialog(); }
                     foreach (var item in products)
                     {
                         if (item.Barcode == txtBarcodeProduct.Text)
@@ -94,12 +107,14 @@ namespace MarketOtomasyon
                             txtCategory.Text = sonuc.Category.CategoryName;
                             txtProduct.Text = sonuc.ProductName;
                             nuPackageQuantity.Enabled = true;
+                            varMi = true;
+                            break;
                         }
-                        else
-                        {
-                            MessageBox.Show("Lütfen Yeni Ürün ekleyiniz");
-                            /// urun ekleme formu acılacak
-                        }
+                    }
+                    if (varMi == false)
+                    {
+                        MessageBox.Show("Lütfen bir ürün kaydediniz");
+                        frmUrunEkle.ShowDialog();
                     }
 
 
@@ -108,6 +123,68 @@ namespace MarketOtomasyon
                 {
                     MessageBox.Show(ex.Message);
                 }
+            }
+        }
+
+        private void btnMalKabul_Click(object sender, EventArgs e)
+        {
+            if (txtCategory.Text == null || nuPackageQuantity.Value == 0 || nuQuantity.Value == 0 || txtBuyPrice.Text == null) return;
+
+            List<Package> packages = new PackageRepo().GetAll();
+            List<OrderDetail> ods = new OrderDetailRepo().GetAll();
+            try
+            {
+                var sonuc = new ProductRepo().GetAll(x => x.Barcode == txtBarcodeProduct.Text).FirstOrDefault();
+                var sonuc2 = new PackageRepo().GetAll().FirstOrDefault();
+
+                var sonuc3 = new OrderRepo().GetAll().FirstOrDefault();
+                Package package = new Package()
+                {
+                    ProductId = sonuc.Id,
+                    Barcode = txtBarcodePackage.Text,
+                    PackageType = nuPackageQuantity.Value,
+                    BuyPrice = Convert.ToDecimal(txtBuyPrice.Text),
+
+                };
+                //if (!(sonuc2.Barcode == txtBarcodePackage.Text))
+                //{
+                using (var packageRepo = new PackageRepo())
+                {
+                    foreach (var item in packages)
+                    {
+                        if (package.Barcode == item.Barcode) throw new Exception("Aynı barkoda sahip koliniz var");
+
+                    }
+                    packageRepo.Insert(package);
+                    //}
+                }
+                var sonuc22 = new PackageRepo().GetAll(x => x.Barcode == txtBarcodePackage.Text).FirstOrDefault();
+                OrderDetail od = new OrderDetail()
+                {
+                    PackageQuantity = nuQuantity.Value,
+                    PackageType = package.PackageType,
+                    ProductName = sonuc.ProductName,
+                    Id = sonuc3.Id,
+                    Id2 = sonuc22.Id
+                };
+                using (var orderDetailRepo = new OrderDetailRepo())
+                {
+                    orderDetailRepo.Insert(od);
+                    MessageBox.Show("Sipariş kayıt işlemi başarılı");
+
+                }
+
+                var sonuc4 = new ProductRepo().GetAll(x => x.ProductName == txtProduct.Text).FirstOrDefault();
+                sonuc4.StockQuantity = Convert.ToDecimal(sonuc4.StockQuantity) + (nuQuantity.Value * nuPackageQuantity.Value);
+              
+                int a = new ProductRepo().Update();
+
+                ch.FormClearHelper(this);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
     }

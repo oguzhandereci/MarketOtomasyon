@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace MarketOtomasyon.BLL.Repositories
 {
-    public class PackageRepo : RepositoryBase<Package, Guid>
+    public class OrderDetailRepo : RepositoryBase<OrderDetail, Guid>
     {
-        public override List<Package> GetAll()
+        public override List<OrderDetail> GetAll()
         {
             return base.GetAll().OrderBy(x => x.PackageType).ToList();
         }
-        public override int Insert(Package entity)
+        public override int Insert(OrderDetail entity)
         {
             try
             {

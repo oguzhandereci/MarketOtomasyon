@@ -9,11 +9,11 @@ namespace MarketOtomasyon.Models.ViewModels
     public class PackageViewModel
     {
         public Guid Id { get; set; }
-        public int Type { get; set; }
+        public decimal PackageType { get; set; }
         public string Barcode { get; set; }
         public Guid ProductId { get; set; }
         public decimal BuyPrice { get; set; }
 
-        public override string ToString() => $"{Type}";
+        public override string ToString() => $"{PackageType}";
     }
 }

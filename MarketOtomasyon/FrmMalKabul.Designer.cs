@@ -110,6 +110,7 @@
             this.btnMalKabul.TabIndex = 7;
             this.btnMalKabul.Text = "Mal Kabul";
             this.btnMalKabul.UseVisualStyleBackColor = true;
+            this.btnMalKabul.Click += new System.EventHandler(this.btnMalKabul_Click);
             // 
             // tvProduct
             // 
@@ -204,6 +205,7 @@
             this.Controls.Add(this.txtCategory);
             this.Name = "FrmMalKabul";
             this.Text = "MalKabul";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.FrmMalKabul_Load);
             ((System.ComponentModel.ISupportInitialize)(this.nuPackageQuantity)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuQuantity)).EndInit();
