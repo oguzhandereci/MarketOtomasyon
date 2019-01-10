@@ -10,6 +10,7 @@ namespace MarketOtomasyon.Models.ViewModels
     {
         public Guid Id { get; set; }
         public string ProductName { get; set; }
+        public string CategoryName { get; set; }
         public string Barcode { get; set; }
         public decimal SellPrice { get; set; }
         public decimal? StockQuantity { get; set; }

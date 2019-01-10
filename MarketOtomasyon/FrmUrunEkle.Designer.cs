@@ -1,4 +1,6 @@
-﻿namespace MarketOtomasyon
+﻿using System.Windows.Forms;
+
+namespace MarketOtomasyon
 {
     partial class FrmUrunEkle
     {
@@ -44,9 +46,11 @@
             this.gpAddProduct = new System.Windows.Forms.GroupBox();
             this.cmbCategory = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.btnDeleteProduct = new System.Windows.Forms.Button();
+            this.btnUpdateProduct = new System.Windows.Forms.Button();
             this.gpAddCategory = new System.Windows.Forms.GroupBox();
-            this.btnSil = new System.Windows.Forms.Button();
-            this.btnGuncelle = new System.Windows.Forms.Button();
+            this.btnDeleteCategory = new System.Windows.Forms.Button();
+            this.btnUpdateCategory = new System.Windows.Forms.Button();
             this.lstCategories = new System.Windows.Forms.ListBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.güncelleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -69,21 +73,21 @@
             // 
             // txtBarcode
             // 
-            this.txtBarcode.Location = new System.Drawing.Point(103, 80);
+            this.txtBarcode.Location = new System.Drawing.Point(103, 65);
             this.txtBarcode.Name = "txtBarcode";
             this.txtBarcode.Size = new System.Drawing.Size(100, 20);
             this.txtBarcode.TabIndex = 1;
             // 
             // txtSellPrice
             // 
-            this.txtSellPrice.Location = new System.Drawing.Point(103, 113);
+            this.txtSellPrice.Location = new System.Drawing.Point(103, 90);
             this.txtSellPrice.Name = "txtSellPrice";
             this.txtSellPrice.Size = new System.Drawing.Size(100, 20);
             this.txtSellPrice.TabIndex = 2;
             // 
             // txtCategory
             // 
-            this.txtCategory.Location = new System.Drawing.Point(102, 13);
+            this.txtCategory.Location = new System.Drawing.Point(102, 12);
             this.txtCategory.Name = "txtCategory";
             this.txtCategory.Size = new System.Drawing.Size(100, 20);
             this.txtCategory.TabIndex = 3;
@@ -91,7 +95,7 @@
             // nuKDV
             // 
             this.nuKDV.DecimalPlaces = 2;
-            this.nuKDV.Location = new System.Drawing.Point(102, 53);
+            this.nuKDV.Location = new System.Drawing.Point(102, 38);
             this.nuKDV.Name = "nuKDV";
             this.nuKDV.Size = new System.Drawing.Size(120, 20);
             this.nuKDV.TabIndex = 4;
@@ -108,7 +112,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 83);
+            this.label2.Location = new System.Drawing.Point(6, 68);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(41, 13);
             this.label2.TabIndex = 6;
@@ -117,7 +121,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 116);
+            this.label3.Location = new System.Drawing.Point(6, 93);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(57, 13);
             this.label3.TabIndex = 7;
@@ -126,7 +130,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 16);
+            this.label4.Location = new System.Drawing.Point(6, 15);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(46, 13);
             this.label4.TabIndex = 8;
@@ -135,7 +139,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 55);
+            this.label5.Location = new System.Drawing.Point(6, 40);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(29, 13);
             this.label5.TabIndex = 9;
@@ -143,7 +147,7 @@
             // 
             // btnAddProduct
             // 
-            this.btnAddProduct.Location = new System.Drawing.Point(9, 139);
+            this.btnAddProduct.Location = new System.Drawing.Point(9, 116);
             this.btnAddProduct.Name = "btnAddProduct";
             this.btnAddProduct.Size = new System.Drawing.Size(221, 23);
             this.btnAddProduct.TabIndex = 10;
@@ -153,7 +157,7 @@
             // 
             // btnAddCategory
             // 
-            this.btnAddCategory.Location = new System.Drawing.Point(9, 83);
+            this.btnAddCategory.Location = new System.Drawing.Point(9, 68);
             this.btnAddCategory.Name = "btnAddCategory";
             this.btnAddCategory.Size = new System.Drawing.Size(221, 23);
             this.btnAddCategory.TabIndex = 11;
@@ -165,7 +169,9 @@
             // 
             this.gpAddProduct.Controls.Add(this.cmbCategory);
             this.gpAddProduct.Controls.Add(this.label6);
+            this.gpAddProduct.Controls.Add(this.btnDeleteProduct);
             this.gpAddProduct.Controls.Add(this.label1);
+            this.gpAddProduct.Controls.Add(this.btnUpdateProduct);
             this.gpAddProduct.Controls.Add(this.txtProduct);
             this.gpAddProduct.Controls.Add(this.btnAddProduct);
             this.gpAddProduct.Controls.Add(this.txtBarcode);
@@ -174,7 +180,7 @@
             this.gpAddProduct.Controls.Add(this.label3);
             this.gpAddProduct.Location = new System.Drawing.Point(6, 14);
             this.gpAddProduct.Name = "gpAddProduct";
-            this.gpAddProduct.Size = new System.Drawing.Size(241, 171);
+            this.gpAddProduct.Size = new System.Drawing.Size(241, 201);
             this.gpAddProduct.TabIndex = 12;
             this.gpAddProduct.TabStop = false;
             this.gpAddProduct.Text = "Ürün Ekle";
@@ -182,7 +188,7 @@
             // cmbCategory
             // 
             this.cmbCategory.FormattingEnabled = true;
-            this.cmbCategory.Location = new System.Drawing.Point(103, 50);
+            this.cmbCategory.Location = new System.Drawing.Point(103, 39);
             this.cmbCategory.Name = "cmbCategory";
             this.cmbCategory.Size = new System.Drawing.Size(100, 21);
             this.cmbCategory.TabIndex = 13;
@@ -190,50 +196,73 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(5, 50);
+            this.label6.Location = new System.Drawing.Point(5, 39);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(46, 13);
             this.label6.TabIndex = 12;
             this.label6.Text = "Kategori";
             // 
+            // btnDeleteProduct
+            // 
+            this.btnDeleteProduct.Enabled = false;
+            this.btnDeleteProduct.Location = new System.Drawing.Point(9, 174);
+            this.btnDeleteProduct.Name = "btnDeleteProduct";
+            this.btnDeleteProduct.Size = new System.Drawing.Size(221, 23);
+            this.btnDeleteProduct.TabIndex = 11;
+            this.btnDeleteProduct.Text = "Sil";
+            this.btnDeleteProduct.UseVisualStyleBackColor = true;
+            this.btnDeleteProduct.Visible = false;
+            // 
+            // btnUpdateProduct
+            // 
+            this.btnUpdateProduct.Enabled = false;
+            this.btnUpdateProduct.Location = new System.Drawing.Point(9, 145);
+            this.btnUpdateProduct.Name = "btnUpdateProduct";
+            this.btnUpdateProduct.Size = new System.Drawing.Size(221, 23);
+            this.btnUpdateProduct.TabIndex = 11;
+            this.btnUpdateProduct.Text = "Güncelle";
+            this.btnUpdateProduct.UseVisualStyleBackColor = true;
+            this.btnUpdateProduct.Visible = false;
+            this.btnUpdateProduct.Click += new System.EventHandler(this.Update_Click);
+            // 
             // gpAddCategory
             // 
             this.gpAddCategory.Controls.Add(this.label4);
             this.gpAddCategory.Controls.Add(this.txtCategory);
-            this.gpAddCategory.Controls.Add(this.btnSil);
-            this.gpAddCategory.Controls.Add(this.btnGuncelle);
+            this.gpAddCategory.Controls.Add(this.btnDeleteCategory);
+            this.gpAddCategory.Controls.Add(this.btnUpdateCategory);
             this.gpAddCategory.Controls.Add(this.btnAddCategory);
             this.gpAddCategory.Controls.Add(this.nuKDV);
             this.gpAddCategory.Controls.Add(this.label5);
-            this.gpAddCategory.Location = new System.Drawing.Point(6, 200);
+            this.gpAddCategory.Location = new System.Drawing.Point(6, 221);
             this.gpAddCategory.Name = "gpAddCategory";
-            this.gpAddCategory.Size = new System.Drawing.Size(241, 171);
+            this.gpAddCategory.Size = new System.Drawing.Size(241, 156);
             this.gpAddCategory.TabIndex = 13;
             this.gpAddCategory.TabStop = false;
             this.gpAddCategory.Text = "Kategori Ekle";
             // 
-            // btnSil
+            // btnDeleteCategory
             // 
-            this.btnSil.Enabled = false;
-            this.btnSil.Location = new System.Drawing.Point(8, 141);
-            this.btnSil.Name = "btnSil";
-            this.btnSil.Size = new System.Drawing.Size(221, 23);
-            this.btnSil.TabIndex = 11;
-            this.btnSil.Text = "Sil";
-            this.btnSil.UseVisualStyleBackColor = true;
-            this.btnSil.Visible = false;
+            this.btnDeleteCategory.Enabled = false;
+            this.btnDeleteCategory.Location = new System.Drawing.Point(8, 126);
+            this.btnDeleteCategory.Name = "btnDeleteCategory";
+            this.btnDeleteCategory.Size = new System.Drawing.Size(221, 23);
+            this.btnDeleteCategory.TabIndex = 11;
+            this.btnDeleteCategory.Text = "Sil";
+            this.btnDeleteCategory.UseVisualStyleBackColor = true;
+            this.btnDeleteCategory.Visible = false;
             // 
-            // btnGuncelle
+            // btnUpdateCategory
             // 
-            this.btnGuncelle.Enabled = false;
-            this.btnGuncelle.Location = new System.Drawing.Point(9, 112);
-            this.btnGuncelle.Name = "btnGuncelle";
-            this.btnGuncelle.Size = new System.Drawing.Size(221, 23);
-            this.btnGuncelle.TabIndex = 11;
-            this.btnGuncelle.Text = "Güncelle";
-            this.btnGuncelle.UseVisualStyleBackColor = true;
-            this.btnGuncelle.Visible = false;
-            this.btnGuncelle.Click += new System.EventHandler(this.btnGuncelle_Click);
+            this.btnUpdateCategory.Enabled = false;
+            this.btnUpdateCategory.Location = new System.Drawing.Point(9, 97);
+            this.btnUpdateCategory.Name = "btnUpdateCategory";
+            this.btnUpdateCategory.Size = new System.Drawing.Size(221, 23);
+            this.btnUpdateCategory.TabIndex = 11;
+            this.btnUpdateCategory.Text = "Güncelle";
+            this.btnUpdateCategory.UseVisualStyleBackColor = true;
+            this.btnUpdateCategory.Visible = false;
+            this.btnUpdateCategory.Click += new System.EventHandler(this.Update_Click);
             // 
             // lstCategories
             // 
@@ -241,7 +270,7 @@
             this.lstCategories.FormattingEnabled = true;
             this.lstCategories.Location = new System.Drawing.Point(276, 40);
             this.lstCategories.Name = "lstCategories";
-            this.lstCategories.Size = new System.Drawing.Size(174, 329);
+            this.lstCategories.Size = new System.Drawing.Size(174, 342);
             this.lstCategories.TabIndex = 14;
             this.lstCategories.SelectedIndexChanged += new System.EventHandler(this.lstCategories_SelectedIndexChanged);
             // 
@@ -273,8 +302,9 @@
             this.lstProducts.FormattingEnabled = true;
             this.lstProducts.Location = new System.Drawing.Point(489, 40);
             this.lstProducts.Name = "lstProducts";
-            this.lstProducts.Size = new System.Drawing.Size(174, 329);
+            this.lstProducts.Size = new System.Drawing.Size(174, 342);
             this.lstProducts.TabIndex = 14;
+            this.lstProducts.SelectedIndexChanged += new System.EventHandler(this.lstProducts_SelectedIndexChanged);
             // 
             // label7
             // 
@@ -350,7 +380,9 @@
         private System.Windows.Forms.ToolStripMenuItem güncelleToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem silToolStripMenuItem;
         private System.Windows.Forms.ComboBox cmbCategory;
-        private System.Windows.Forms.Button btnSil;
-        private System.Windows.Forms.Button btnGuncelle;
+        private System.Windows.Forms.Button btnDeleteCategory;
+        private System.Windows.Forms.Button btnUpdateCategory;
+        private System.Windows.Forms.Button btnDeleteProduct;
+        private System.Windows.Forms.Button btnUpdateProduct;
     }
 }

@@ -9,6 +9,7 @@ using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 
+
 namespace MarketOtomasyon
 {
     public partial class FrmUrunEkle : Form
@@ -17,8 +18,6 @@ namespace MarketOtomasyon
         {
             InitializeComponent();
         }
-
-
         ClearHelper ch = new ClearHelper();
         private void btnAddCategory_Click(object sender, EventArgs e)
         {
@@ -103,83 +102,96 @@ namespace MarketOtomasyon
 
         private void GetCategories()
         {
-
-            List<ProductViewModel> products = new List<ProductViewModel>();
             try
             {
                 var categories = new CategoryRepo().GetAll()
-                                                      .OrderBy(x => x.CategoryName)
-                                                      .Select(x => new CategoryViewModel()
-                                                      {
-                                                          Id = x.Id,
-                                                          Name = x.CategoryName,
-                                                          KdvRate = x.KdvRate
-
-                                                      }).ToList();
-                products.AddRange(new ProductRepo().GetAll()
-                       .OrderBy(x => x.ProductName)
-                       .Select(x => new ProductViewModel()
-                       {
-                           Id = x.Id,
-                           ProductName = x.ProductName,
-                           SellPrice = x.SellPrice,
-                           StockQuantity = x.StockQuantity,
-                           Barcode = x.Barcode
-                       }));
+                    .OrderBy(x => x.CategoryName)
+                    .Select(x => new CategoryViewModel()
+                    {
+                        Id = x.Id,
+                        Name = x.CategoryName,
+                        KdvRate = x.KdvRate
+                    }).ToList();
 
                 lstCategories.DataSource = categories;
-                lstProducts.DataSource = products;
                 cmbCategory.DataSource = categories;
+
+                lstCategories.SelectedItem = null;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
 
         private void FrmUrunEkle_Load_1(object sender, EventArgs e)
         {
-            lstCategories.SelectedItem = null;
             GetCategories();
         }
 
-        static object selected;
+        private object _selectedCat = null;
+        private object _selectedProduct = null;
         private void lstCategories_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (lstCategories.SelectedItem == null) return;
-            
-            selected = lstCategories.SelectedItem;
+
+            _selectedCat = lstCategories.SelectedItem;
+            lstProducts.SelectionMode = SelectionMode.None;
             lstProducts.DataSource = new ProductRepo()
-                .GetAll(x => x.CategoryId == (selected as CategoryViewModel).Id)
+                .GetAll(x => x.CategoryId == ((CategoryViewModel) _selectedCat).Id)
                 .OrderBy(x => x.ProductName)
                 .Select(x => new ProductViewModel()
                 {
                      ProductName = x.ProductName,
-                      Barcode = x.Barcode,
-                       Id = x.Id,
-                        SellPrice = x.SellPrice,
-                         StockQuantity = x.StockQuantity
+                     Barcode = x.Barcode,
+                     Id = x.Id,
+                     CategoryName = x.Category.CategoryName,
+                     SellPrice = x.SellPrice,
+                     StockQuantity = x.StockQuantity
                 })
-                .ToList();                                                                                                                     
+                .ToList();
+            lstProducts.ClearSelected();
+            lstProducts.SelectionMode = SelectionMode.One;
         }
-        CategoryViewModel ct = new CategoryViewModel();
+
+        private void lstProducts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _selectedCat = null;
+            if (lstProducts.SelectedItem == null) return;
+            _selectedProduct = lstProducts.SelectedItem;
+        }
+
+        private CategoryViewModel _ct = null;
+        private ProductViewModel _pd = null;
         private void güncelleToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (selected is CategoryViewModel)
+            if (_selectedCat != null)
             {
-                var selectedCat = selected as CategoryViewModel;
-                txtCategory.Text = selectedCat.Name;
-                nuKDV.Value = selectedCat.KdvRate;
-                btnAddCategory.Visible = false;
-                btnGuncelle.Visible = true;
-                btnGuncelle.Enabled = true;
-                ct = selectedCat;
+                if (_selectedCat is CategoryViewModel selected)
+                {
+                    txtCategory.Text = selected.Name;
+                    nuKDV.Value = selected.KdvRate;
+                    btnAddCategory.Visible = false;
+                    btnUpdateCategory.Visible = true;
+                    btnUpdateCategory.Enabled = true;
+                    _ct = selected;
+                }
             }
             
-            else if (selected is ProductViewModel)
+            if (_selectedProduct != null)
             {
-
+                _selectedCat = null;
+                if (_selectedProduct is ProductViewModel selected)
+                {
+                    txtProduct.Text = selected.ProductName;
+                    txtBarcode.Text = selected.Barcode;
+                    cmbCategory.Text = selected.CategoryName;
+                    txtSellPrice.Text = selected.SellPrice.ToString();
+                    btnAddProduct.Visible = false;
+                    btnUpdateProduct.Visible = true;
+                    btnUpdateProduct.Enabled = true;
+                    _pd = selected;
+                }
             }
         }
 
@@ -188,36 +200,39 @@ namespace MarketOtomasyon
             
         }
 
-        private void btnGuncelle_Click(object sender, EventArgs e)
+        private void Update_Click(object sender, EventArgs e)
         {
-            var catRepo = new CategoryRepo();
-            var sonuc = catRepo.GetById(ct.Id);
-            sonuc.KdvRate = nuKDV.Value;
-            sonuc.CategoryName = txtCategory.Text;
-            
-            catRepo.Update();
-            //try
-            //{
+            try
+            {
+                if (_ct != null)
+                {
+                    using (var categoryRepo = new CategoryRepo())
+                    {
+                        var sonuc = categoryRepo.GetById(_ct.Id);
+                        sonuc.KdvRate = nuKDV.Value;
+                        sonuc.CategoryName = txtCategory.Text;
 
-            //    using (var CategoryRepo = new CategoryRepo())
-            //    {
-            //        var Sonuc = new ProductRepo()
-            //            .GetAll()
-            //            .FirstOrDefault();
-
-            //        txtCategory.Text = Sonuc.Category.CategoryName;
-            //        foreach (var item in products)
-            //        {
-            //            if (product.Barcode == item.Barcode) throw new Exception("Aynı barkoda sahip ürününz var");
-            //            if (item.CategoryId == product.CategoryId && item.ProductName == product.ProductName) throw new Exception("Bu kategoride bu isimde bir ürün bulunmaktadir");
-            //        }
-            //        productRepo.Insert(product);
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message);
-            //}
+                        categoryRepo.Update();
+                        _selectedCat = null;
+                    }
+                }
+                else if (_pd != null)
+                {
+                    using (var productRepo = new ProductRepo())
+                    {
+                        var sonuc = productRepo.GetById(_pd.Id);
+                        sonuc.ProductName = txtProduct.Text;
+                        sonuc.Barcode = txtBarcode.Text;
+                        sonuc.SellPrice = decimal.Parse(txtSellPrice.Text);
+                        productRepo.Update();
+                        _selectedProduct = null;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }
