@@ -44,6 +44,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
+            this.btnSepeteEkle = new System.Windows.Forms.Button();
+            this.lstOrderDetails = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.nuPackageQuantity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuQuantity)).BeginInit();
             this.SuspendLayout();
@@ -66,7 +68,6 @@
             // 
             // nuPackageQuantity
             // 
-            this.nuPackageQuantity.Enabled = false;
             this.nuPackageQuantity.Location = new System.Drawing.Point(75, 145);
             this.nuPackageQuantity.Name = "nuPackageQuantity";
             this.nuPackageQuantity.Size = new System.Drawing.Size(120, 20);
@@ -104,9 +105,9 @@
             // 
             // btnMalKabul
             // 
-            this.btnMalKabul.Location = new System.Drawing.Point(289, 168);
+            this.btnMalKabul.Location = new System.Drawing.Point(316, 171);
             this.btnMalKabul.Name = "btnMalKabul";
-            this.btnMalKabul.Size = new System.Drawing.Size(120, 46);
+            this.btnMalKabul.Size = new System.Drawing.Size(93, 46);
             this.btnMalKabul.TabIndex = 7;
             this.btnMalKabul.Text = "Mal Kabul";
             this.btnMalKabul.UseVisualStyleBackColor = true;
@@ -182,11 +183,31 @@
             this.label7.TabIndex = 15;
             this.label7.Text = "Alış Fiyatı";
             // 
+            // btnSepeteEkle
+            // 
+            this.btnSepeteEkle.Location = new System.Drawing.Point(217, 171);
+            this.btnSepeteEkle.Name = "btnSepeteEkle";
+            this.btnSepeteEkle.Size = new System.Drawing.Size(93, 46);
+            this.btnSepeteEkle.TabIndex = 16;
+            this.btnSepeteEkle.Text = "Sipariş Ekle";
+            this.btnSepeteEkle.UseVisualStyleBackColor = true;
+            this.btnSepeteEkle.Click += new System.EventHandler(this.btnSepeteEkle_Click);
+            // 
+            // lstOrderDetails
+            // 
+            this.lstOrderDetails.FormattingEnabled = true;
+            this.lstOrderDetails.Location = new System.Drawing.Point(217, 53);
+            this.lstOrderDetails.Name = "lstOrderDetails";
+            this.lstOrderDetails.Size = new System.Drawing.Size(192, 108);
+            this.lstOrderDetails.TabIndex = 17;
+            // 
             // FrmMalKabul
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(587, 241);
+            this.Controls.Add(this.lstOrderDetails);
+            this.Controls.Add(this.btnSepeteEkle);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
@@ -232,5 +253,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button btnSepeteEkle;
+        private System.Windows.Forms.ListBox lstOrderDetails;
     }
 }

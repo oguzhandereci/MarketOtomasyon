@@ -31,6 +31,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.malKabulToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.urunEkleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.satışİşlemleriToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -38,7 +39,8 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.malKabulToolStripMenuItem,
-            this.urunEkleToolStripMenuItem});
+            this.urunEkleToolStripMenuItem,
+            this.satışİşlemleriToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(800, 24);
@@ -58,6 +60,13 @@
             this.urunEkleToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
             this.urunEkleToolStripMenuItem.Text = "Ürün Ekle";
             this.urunEkleToolStripMenuItem.Click += new System.EventHandler(this.ürünEkleToolStripMenuItem_Click);
+            // 
+            // satışİşlemleriToolStripMenuItem
+            // 
+            this.satışİşlemleriToolStripMenuItem.Name = "satışİşlemleriToolStripMenuItem";
+            this.satışİşlemleriToolStripMenuItem.Size = new System.Drawing.Size(90, 20);
+            this.satışİşlemleriToolStripMenuItem.Text = "Satış İşlemleri";
+            this.satışİşlemleriToolStripMenuItem.Click += new System.EventHandler(this.satışİşlemleriToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -80,6 +89,7 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem malKabulToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem urunEkleToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem satışİşlemleriToolStripMenuItem;
     }
 }
 

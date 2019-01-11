@@ -15,10 +15,13 @@ namespace MarketOtomasyon.Helpers
             {
                 if (item is TextBox)
                     item.Text = string.Empty;
-                if (item is NumericUpDown)
-                    item.Text = string.Empty;
+                //if (item is NumericUpDown)
+                //    item.Text = string.Empty;
                 if (item is ComboBox)
                     item.Text = string.Empty;
+                //if (item is ListBox)
+                    
+                    
             }
         }
         public void FormClearHelper(Form form, GroupBox gb)

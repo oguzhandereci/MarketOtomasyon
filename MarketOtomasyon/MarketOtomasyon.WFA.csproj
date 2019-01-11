@@ -63,6 +63,12 @@
     <Compile Include="FrmMalKabul.Designer.cs">
       <DependentUpon>FrmMalKabul.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmSatis.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSatis.Designer.cs">
+      <DependentUpon>FrmSatis.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmUrunEkle.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -77,6 +83,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmMalKabul.resx">
       <DependentUpon>FrmMalKabul.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSatis.resx">
+      <DependentUpon>FrmSatis.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmUrunEkle.resx">
       <DependentUpon>FrmUrunEkle.cs</DependentUpon>

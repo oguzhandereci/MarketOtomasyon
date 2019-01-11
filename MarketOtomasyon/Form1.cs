@@ -18,6 +18,7 @@ namespace MarketOtomasyon
         }
         FrmMalKabul frmMalKabul;
         FrmUrunEkle frmUrunEkle;
+        FrmSatis frmSatis;
         private void malKabulToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (frmMalKabul == null || frmMalKabul.IsDisposed)
@@ -43,6 +44,20 @@ namespace MarketOtomasyon
                 };
                 frmUrunEkle.Show();
             }
+        }
+
+        private void satışİşlemleriToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (frmSatis == null || frmSatis.IsDisposed)
+            {
+                frmSatis = new FrmSatis
+                {
+                    Text = "Urun Ekle",
+                    MdiParent = this
+                };
+                frmSatis.Show();
+            }
+
         }
     }
 }
