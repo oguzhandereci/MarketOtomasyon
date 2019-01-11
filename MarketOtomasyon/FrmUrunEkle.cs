@@ -78,7 +78,7 @@ namespace MarketOtomasyon
                     CategoryId = (cmbCategory.SelectedItem as CategoryViewModel).Id,
                     ProductName = txtProduct.Text,
                     Barcode = txtBarcode.Text,
-                    SellPrice = Convert.ToDecimal(txtSellPrice.Text)
+                    SellPrice = Convert.ToDecimal(txtSellPrice.Text)+(Convert.ToDecimal(txtSellPrice.Text)*(cmbCategory.SelectedItem as CategoryViewModel).KdvRate)
                 };
 
                 using (var productRepo = new ProductRepo())
@@ -218,7 +218,7 @@ namespace MarketOtomasyon
                         var sonuc = productRepo.GetById(_pd.Id);
                         sonuc.ProductName = txtProduct.Text;
                         sonuc.Barcode = txtBarcode.Text;
-                        sonuc.SellPrice = decimal.Parse(txtSellPrice.Text);
+                        sonuc.SellPrice = decimal.Parse(txtSellPrice.Text)+(decimal.Parse(txtSellPrice.Text) * (sonuc.Category.KdvRate));
                         productRepo.Update();
                         MessageBox.Show($"Secilen {_pd.ProductName} isimli ürün basariyla guncellendi");
                         _selectedProduct = null;

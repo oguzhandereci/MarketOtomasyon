@@ -46,10 +46,8 @@ namespace MarketOtomasyon
             this.gpAddProduct = new System.Windows.Forms.GroupBox();
             this.cmbCategory = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.btnDeleteProduct = new System.Windows.Forms.Button();
             this.btnUpdateProduct = new System.Windows.Forms.Button();
             this.gpAddCategory = new System.Windows.Forms.GroupBox();
-            this.btnDeleteCategory = new System.Windows.Forms.Button();
             this.btnUpdateCategory = new System.Windows.Forms.Button();
             this.lstCategories = new System.Windows.Forms.ListBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -66,28 +64,28 @@ namespace MarketOtomasyon
             // 
             // txtProduct
             // 
-            this.txtProduct.Location = new System.Drawing.Point(103, 14);
+            this.txtProduct.Location = new System.Drawing.Point(118, 14);
             this.txtProduct.Name = "txtProduct";
             this.txtProduct.Size = new System.Drawing.Size(100, 20);
             this.txtProduct.TabIndex = 0;
             // 
             // txtBarcode
             // 
-            this.txtBarcode.Location = new System.Drawing.Point(103, 65);
+            this.txtBarcode.Location = new System.Drawing.Point(118, 65);
             this.txtBarcode.Name = "txtBarcode";
             this.txtBarcode.Size = new System.Drawing.Size(100, 20);
             this.txtBarcode.TabIndex = 1;
             // 
             // txtSellPrice
             // 
-            this.txtSellPrice.Location = new System.Drawing.Point(103, 90);
+            this.txtSellPrice.Location = new System.Drawing.Point(118, 90);
             this.txtSellPrice.Name = "txtSellPrice";
             this.txtSellPrice.Size = new System.Drawing.Size(100, 20);
             this.txtSellPrice.TabIndex = 2;
             // 
             // txtCategory
             // 
-            this.txtCategory.Location = new System.Drawing.Point(102, 12);
+            this.txtCategory.Location = new System.Drawing.Point(118, 22);
             this.txtCategory.Name = "txtCategory";
             this.txtCategory.Size = new System.Drawing.Size(100, 20);
             this.txtCategory.TabIndex = 3;
@@ -95,9 +93,9 @@ namespace MarketOtomasyon
             // nuKDV
             // 
             this.nuKDV.DecimalPlaces = 2;
-            this.nuKDV.Location = new System.Drawing.Point(102, 38);
+            this.nuKDV.Location = new System.Drawing.Point(118, 48);
             this.nuKDV.Name = "nuKDV";
-            this.nuKDV.Size = new System.Drawing.Size(120, 20);
+            this.nuKDV.Size = new System.Drawing.Size(100, 20);
             this.nuKDV.TabIndex = 4;
             // 
             // label1
@@ -123,14 +121,14 @@ namespace MarketOtomasyon
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(6, 93);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(57, 13);
+            this.label3.Size = new System.Drawing.Size(99, 13);
             this.label3.TabIndex = 7;
-            this.label3.Text = "Satış Fiyatı";
+            this.label3.Text = "KDV\'siz Satış Tutarı";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 15);
+            this.label4.Location = new System.Drawing.Point(6, 25);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(46, 13);
             this.label4.TabIndex = 8;
@@ -139,7 +137,7 @@ namespace MarketOtomasyon
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 40);
+            this.label5.Location = new System.Drawing.Point(6, 50);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(29, 13);
             this.label5.TabIndex = 9;
@@ -147,7 +145,7 @@ namespace MarketOtomasyon
             // 
             // btnAddProduct
             // 
-            this.btnAddProduct.Location = new System.Drawing.Point(9, 116);
+            this.btnAddProduct.Location = new System.Drawing.Point(9, 139);
             this.btnAddProduct.Name = "btnAddProduct";
             this.btnAddProduct.Size = new System.Drawing.Size(221, 23);
             this.btnAddProduct.TabIndex = 10;
@@ -157,7 +155,7 @@ namespace MarketOtomasyon
             // 
             // btnAddCategory
             // 
-            this.btnAddCategory.Location = new System.Drawing.Point(9, 68);
+            this.btnAddCategory.Location = new System.Drawing.Point(9, 95);
             this.btnAddCategory.Name = "btnAddCategory";
             this.btnAddCategory.Size = new System.Drawing.Size(221, 23);
             this.btnAddCategory.TabIndex = 11;
@@ -169,7 +167,6 @@ namespace MarketOtomasyon
             // 
             this.gpAddProduct.Controls.Add(this.cmbCategory);
             this.gpAddProduct.Controls.Add(this.label6);
-            this.gpAddProduct.Controls.Add(this.btnDeleteProduct);
             this.gpAddProduct.Controls.Add(this.label1);
             this.gpAddProduct.Controls.Add(this.btnUpdateProduct);
             this.gpAddProduct.Controls.Add(this.txtProduct);
@@ -188,7 +185,7 @@ namespace MarketOtomasyon
             // cmbCategory
             // 
             this.cmbCategory.FormattingEnabled = true;
-            this.cmbCategory.Location = new System.Drawing.Point(103, 39);
+            this.cmbCategory.Location = new System.Drawing.Point(118, 39);
             this.cmbCategory.Name = "cmbCategory";
             this.cmbCategory.Size = new System.Drawing.Size(100, 21);
             this.cmbCategory.TabIndex = 13;
@@ -202,21 +199,10 @@ namespace MarketOtomasyon
             this.label6.TabIndex = 12;
             this.label6.Text = "Kategori";
             // 
-            // btnDeleteProduct
-            // 
-            this.btnDeleteProduct.Enabled = false;
-            this.btnDeleteProduct.Location = new System.Drawing.Point(9, 174);
-            this.btnDeleteProduct.Name = "btnDeleteProduct";
-            this.btnDeleteProduct.Size = new System.Drawing.Size(221, 23);
-            this.btnDeleteProduct.TabIndex = 11;
-            this.btnDeleteProduct.Text = "Sil";
-            this.btnDeleteProduct.UseVisualStyleBackColor = true;
-            this.btnDeleteProduct.Visible = false;
-            // 
             // btnUpdateProduct
             // 
             this.btnUpdateProduct.Enabled = false;
-            this.btnUpdateProduct.Location = new System.Drawing.Point(9, 145);
+            this.btnUpdateProduct.Location = new System.Drawing.Point(9, 168);
             this.btnUpdateProduct.Name = "btnUpdateProduct";
             this.btnUpdateProduct.Size = new System.Drawing.Size(221, 23);
             this.btnUpdateProduct.TabIndex = 11;
@@ -229,7 +215,6 @@ namespace MarketOtomasyon
             // 
             this.gpAddCategory.Controls.Add(this.label4);
             this.gpAddCategory.Controls.Add(this.txtCategory);
-            this.gpAddCategory.Controls.Add(this.btnDeleteCategory);
             this.gpAddCategory.Controls.Add(this.btnUpdateCategory);
             this.gpAddCategory.Controls.Add(this.btnAddCategory);
             this.gpAddCategory.Controls.Add(this.nuKDV);
@@ -241,21 +226,10 @@ namespace MarketOtomasyon
             this.gpAddCategory.TabStop = false;
             this.gpAddCategory.Text = "Kategori Ekle";
             // 
-            // btnDeleteCategory
-            // 
-            this.btnDeleteCategory.Enabled = false;
-            this.btnDeleteCategory.Location = new System.Drawing.Point(8, 126);
-            this.btnDeleteCategory.Name = "btnDeleteCategory";
-            this.btnDeleteCategory.Size = new System.Drawing.Size(221, 23);
-            this.btnDeleteCategory.TabIndex = 11;
-            this.btnDeleteCategory.Text = "Sil";
-            this.btnDeleteCategory.UseVisualStyleBackColor = true;
-            this.btnDeleteCategory.Visible = false;
-            // 
             // btnUpdateCategory
             // 
             this.btnUpdateCategory.Enabled = false;
-            this.btnUpdateCategory.Location = new System.Drawing.Point(9, 97);
+            this.btnUpdateCategory.Location = new System.Drawing.Point(9, 124);
             this.btnUpdateCategory.Name = "btnUpdateCategory";
             this.btnUpdateCategory.Size = new System.Drawing.Size(221, 23);
             this.btnUpdateCategory.TabIndex = 11;
@@ -380,9 +354,7 @@ namespace MarketOtomasyon
         private System.Windows.Forms.ToolStripMenuItem güncelleToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem silToolStripMenuItem;
         private System.Windows.Forms.ComboBox cmbCategory;
-        private System.Windows.Forms.Button btnDeleteCategory;
         private System.Windows.Forms.Button btnUpdateCategory;
-        private System.Windows.Forms.Button btnDeleteProduct;
         private System.Windows.Forms.Button btnUpdateProduct;
     }
 }
