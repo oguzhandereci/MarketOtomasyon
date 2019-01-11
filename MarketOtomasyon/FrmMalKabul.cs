@@ -47,14 +47,14 @@ namespace MarketOtomasyon
                            BuyPrice = x.BuyPrice,
                            ProductId = x.ProductId
                        }));
-                    if (packages.Count == 0) MessageBox.Show("Lütfen önce ürün barkodu girin");
+                    if (packages.Count == 0) { MessageBox.Show("Lütfen önce ürün barkodu girin"); return;}
                     var sonuc = new PackageRepo().GetAll(x => x.Barcode == txtBarcodePackage.Text).FirstOrDefault();
                     foreach (var item in packages)
                     {
 
                         if (item.Barcode == txtBarcodePackage.Text)
                         {
-
+                            txtBarcodeProduct.Text = sonuc.Product.Barcode;
                             txtCategory.Text = sonuc.Product.Category.CategoryName;
                             txtProduct.Text = sonuc.Product.ProductName;
                             nuPackageQuantity.Value = sonuc.PackageType;
@@ -135,43 +135,52 @@ namespace MarketOtomasyon
             try
             {
                 var sonuc = new ProductRepo().GetAll(x => x.Barcode == txtBarcodeProduct.Text).FirstOrDefault();
-                var sonuc2 = new PackageRepo().GetAll().FirstOrDefault();
-
-                var sonuc3 = new OrderRepo().GetAll().FirstOrDefault();
-                Package package = new Package()
+                var FindPackage = new PackageRepo().GetAll(x=>x.Barcode==txtBarcodePackage.Text).FirstOrDefault();
+                if (FindPackage == null)
                 {
-                    ProductId = sonuc.Id,
-                    Barcode = txtBarcodePackage.Text,
-                    PackageType = nuPackageQuantity.Value,
-                    BuyPrice = Convert.ToDecimal(txtBuyPrice.Text),
-
-                };
-                //if (!(sonuc2.Barcode == txtBarcodePackage.Text))
-                //{
-                using (var packageRepo = new PackageRepo())
-                {
-                    foreach (var item in packages)
+                    ////// package save part
+                    Package package = new Package()
                     {
-                        if (package.Barcode == item.Barcode) throw new Exception("Aynı barkoda sahip koliniz var");
+                        ProductId = sonuc.Id,
+                        Barcode = txtBarcodePackage.Text,
+                        PackageType = nuPackageQuantity.Value,
+                        BuyPrice = Convert.ToDecimal(txtBuyPrice.Text),
 
+                    };
+
+                    using (var packageRepo = new PackageRepo())
+                    {
+                        foreach (var item in packages)
+                        {
+                            if (package.Barcode == item.Barcode) throw new Exception("Aynı barkoda sahip koliniz var");
+                        }
+                        packageRepo.Insert(package);
                     }
-                    packageRepo.Insert(package);
-                    //}
                 }
-                var sonuc22 = new PackageRepo().GetAll(x => x.Barcode == txtBarcodePackage.Text).FirstOrDefault();
+                ///////order part
+                Order order = new Order()
+                {
+                    Id=Guid.NewGuid()
+                };
+                using (var orderRepo = new OrderRepo())
+                {
+                    orderRepo.Insert(order);
+                }
+                ///// order details part
+                var sonuc2 = new PackageRepo().GetAll(x => x.Barcode == txtBarcodePackage.Text).FirstOrDefault();
+                var sonuc3 = new OrderRepo().GetAll().LastOrDefault();
                 OrderDetail od = new OrderDetail()
                 {
                     PackageQuantity = nuQuantity.Value,
-                    PackageType = package.PackageType,
+                    PackageType = sonuc2.PackageType,
                     ProductName = sonuc.ProductName,
                     Id = sonuc3.Id,
-                    Id2 = sonuc22.Id
+                    Id2 = sonuc2.Id
                 };
                 using (var orderDetailRepo = new OrderDetailRepo())
                 {
                     orderDetailRepo.Insert(od);
                     MessageBox.Show("Sipariş kayıt işlemi başarılı");
-
                 }
 
                 var sonuc4 = new ProductRepo().GetAll(x => x.ProductName == txtProduct.Text).FirstOrDefault();
