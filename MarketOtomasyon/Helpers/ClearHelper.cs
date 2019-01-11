@@ -21,6 +21,7 @@ namespace MarketOtomasyon.Helpers
                     item.Text = string.Empty;
                 //if (item is ListBox)
                     
+                    
             }
         }
         public void FormClearHelper(Form form, GroupBox gb)
