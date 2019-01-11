@@ -23,6 +23,6 @@ namespace MarketOtomasyon.Models.Entities
         [ForeignKey("Id2")]
         public virtual Product Product { get; set; }
         
-        public override string ToString() => $" {Quantity}  *  {ProductName} ";
+        public override string ToString() => $" {Quantity}  *  {ProductName} = {TotalPrice}";
     }
 }

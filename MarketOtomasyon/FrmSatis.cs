@@ -67,7 +67,8 @@ namespace MarketOtomasyon
                             Quantity = Convert.ToInt32(nuSellQuantity.Value),
                             ProductName = sonuc.ProductName,
                             Id = sonuc3.Id,
-                            Id2 = sonuc2.Id
+                            Id2 = sonuc2.Id,
+                            TotalPrice = Convert.ToDecimal( sonuc2.SellPrice * nuSellQuantity.Value)
                         };
                         lstSaleDetails.Items.Add(sd);
 
