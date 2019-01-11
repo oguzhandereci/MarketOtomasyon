@@ -21,5 +21,8 @@ namespace MarketOtomasyon.Models.Entities
         public virtual Order Order { get; set; }
         [ForeignKey("Id2")]
         public virtual Package Package { get; set; }
+
+
+        public override string ToString() => $"{ProductName} {PackageType} {PackageQuantity}";
     }
 }
