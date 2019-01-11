@@ -90,7 +90,7 @@ namespace MarketOtomasyon
                     }
                     productRepo.Insert(product);
                     MessageBox.Show("Kayıt işlemi başarılı");
-                    ch.FormClearHelper(this,gpAddProduct);
+                    ch.FormClearHelper(this, gpAddProduct);
                 }
             }
             catch (Exception ex)
@@ -138,16 +138,16 @@ namespace MarketOtomasyon
             _selectedCat = lstCategories.SelectedItem;
             lstProducts.SelectionMode = SelectionMode.None;
             lstProducts.DataSource = new ProductRepo()
-                .GetAll(x => x.CategoryId == ((CategoryViewModel) _selectedCat).Id)
+                .GetAll(x => x.CategoryId == ((CategoryViewModel)_selectedCat).Id)
                 .OrderBy(x => x.ProductName)
                 .Select(x => new ProductViewModel()
                 {
-                     ProductName = x.ProductName,
-                     Barcode = x.Barcode,
-                     Id = x.Id,
-                     CategoryName = x.Category.CategoryName,
-                     SellPrice = x.SellPrice,
-                     StockQuantity = x.StockQuantity
+                    ProductName = x.ProductName,
+                    Barcode = x.Barcode,
+                    Id = x.Id,
+                    CategoryName = x.Category.CategoryName,
+                    SellPrice = x.SellPrice,
+                    StockQuantity = x.StockQuantity
                 })
                 .ToList();
             lstProducts.ClearSelected();
@@ -177,7 +177,7 @@ namespace MarketOtomasyon
                     _ct = selected;
                 }
             }
-            
+
             if (_selectedProduct != null)
             {
                 _selectedCat = null;
@@ -194,12 +194,6 @@ namespace MarketOtomasyon
                 }
             }
         }
-
-        private void silToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            
-        }
-
         private void Update_Click(object sender, EventArgs e)
         {
             try
@@ -213,6 +207,7 @@ namespace MarketOtomasyon
                         sonuc.CategoryName = txtCategory.Text;
 
                         categoryRepo.Update();
+                        MessageBox.Show($"Secilen {_ct.Name} isimli kategori basariyla guncellendi");
                         _selectedCat = null;
                     }
                 }
@@ -225,7 +220,50 @@ namespace MarketOtomasyon
                         sonuc.Barcode = txtBarcode.Text;
                         sonuc.SellPrice = decimal.Parse(txtSellPrice.Text);
                         productRepo.Update();
+                        MessageBox.Show($"Secilen {_pd.ProductName} isimli ürün basariyla guncellendi");
                         _selectedProduct = null;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        private void silToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (_selectedCat != null)
+                {
+                    if (_selectedCat is CategoryViewModel selected)
+                    {
+                        using (var categoryRepo = new CategoryRepo())
+                        {
+                            var cat = categoryRepo.GetById(selected.Id);
+                            if (cat.Products.Count == 0)
+                            {
+                                categoryRepo.Delete(cat);
+                                MessageBox.Show($"Secilen {cat.CategoryName} isimli kategori basariyla silindi");
+                            }
+                            else
+                                throw new Exception($"{cat.CategoryName} kategorisi, urun bulundurduğundan dolayı silinemez");
+
+                        }
+                    }
+                }
+
+                if (_selectedProduct != null)
+                {
+                    _selectedCat = null;
+                    if (_selectedProduct is ProductViewModel selected)
+                    {
+                        using (var productRepo = new ProductRepo())
+                        {
+                            var product = productRepo.GetById(selected.Id);
+                            productRepo.Delete(product);
+                            MessageBox.Show($"Secilen {product.ProductName} isimli ürün basariyla silindi");
+                        }
                     }
                 }
             }
