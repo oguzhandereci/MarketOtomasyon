@@ -18,6 +18,7 @@ namespace MarketOtomasyon
         {
             InitializeComponent();
         }
+        double kar = 0.20;
         ClearHelper ch = new ClearHelper();
         private void btnAddCategory_Click(object sender, EventArgs e)
         {
@@ -69,7 +70,7 @@ namespace MarketOtomasyon
         private void btnAddProduct_Click(object sender, EventArgs e)
         {
             if (txtProduct.Text == null || cmbCategory.SelectedItem == null || txtBarcode.Text == null || txtSellPrice.Text == null) return;
-
+            
             List<Product> products = new ProductRepo().GetAll();
             try
             {
@@ -78,7 +79,7 @@ namespace MarketOtomasyon
                     CategoryId = (cmbCategory.SelectedItem as CategoryViewModel).Id,
                     ProductName = txtProduct.Text,
                     Barcode = txtBarcode.Text,
-                    SellPrice = Convert.ToDecimal(txtSellPrice.Text)+(Convert.ToDecimal(txtSellPrice.Text)*(cmbCategory.SelectedItem as CategoryViewModel).KdvRate)
+                    SellPrice = Convert.ToDecimal(txtSellPrice.Text)+(Convert.ToDecimal(txtSellPrice.Text)*(cmbCategory.SelectedItem as CategoryViewModel).KdvRate)+ Convert.ToDecimal(txtSellPrice.Text) * Convert.ToDecimal(kar)
                 };
 
                 using (var productRepo = new ProductRepo())

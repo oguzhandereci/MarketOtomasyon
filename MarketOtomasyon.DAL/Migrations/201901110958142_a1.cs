@@ -3,7 +3,7 @@ namespace MarketOtomasyon.DAL.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class a : DbMigration
+    public partial class a1 : DbMigration
     {
         public override void Up()
         {
@@ -87,6 +87,7 @@ namespace MarketOtomasyon.DAL.Migrations
                         Id2 = c.Guid(nullable: false),
                         ProductName = c.String(),
                         Quantity = c.Int(nullable: false),
+                        TotalPrice = c.Decimal(nullable: false, precision: 18, scale: 2),
                         CreatedDate = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => new { t.Id, t.Id2 })
