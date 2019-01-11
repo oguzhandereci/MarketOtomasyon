@@ -140,13 +140,13 @@ namespace MarketOtomasyon
                         orderDetailRepo.Insert(item as OrderDetail);
                     }
                 }
-
+                ////////////////////sonuc4 hata !!!!
                 var sonuc4 = new ProductRepo().GetAll(x => x.ProductName == txtProduct.Text).FirstOrDefault();
                 sonuc4.StockQuantity = Convert.ToDecimal(sonuc4.StockQuantity) + (tut * nuPackageQuantity.Value);
                 int a = new ProductRepo().Update();
 
                 MessageBox.Show("Sipariş kayıt işlemi başarılı");
-                ch.FormClearHelper(this);
+                /////////ch.FormClearHelper(this);
                 for (int i = 0; i < lstOrderDetails.Items.Count; i++)
                 {
                     lstOrderDetails.Items.Remove(i);
@@ -157,7 +157,7 @@ namespace MarketOtomasyon
                 MessageBox.Show(ex.Message);
             }
         }
-        OrderDetail odTut = new OrderDetail();
+
         decimal tut;
 
         private void btnSepeteEkle_Click(object sender, EventArgs e)

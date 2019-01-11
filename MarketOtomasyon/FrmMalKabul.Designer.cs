@@ -68,7 +68,6 @@
             // 
             // nuPackageQuantity
             // 
-            this.nuPackageQuantity.Enabled = false;
             this.nuPackageQuantity.Location = new System.Drawing.Point(75, 145);
             this.nuPackageQuantity.Name = "nuPackageQuantity";
             this.nuPackageQuantity.Size = new System.Drawing.Size(120, 20);
