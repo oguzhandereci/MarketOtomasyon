@@ -55,6 +55,8 @@
     <Compile Include="Repositories\PackageRepo.cs" />
     <Compile Include="Repositories\ProductRepo.cs" />
     <Compile Include="Repositories\RepositoryBase.cs" />
+    <Compile Include="Repositories\SaleDetailRepo.cs" />
+    <Compile Include="Repositories\SaleRepo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MarketOtomasyon.DAL\MarketOtomasyon.DAL.csproj">

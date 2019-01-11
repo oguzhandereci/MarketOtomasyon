@@ -1,4 +1,5 @@
 ﻿using MarketOtomasyon.BLL.Repositories;
+using MarketOtomasyon.Models.Entities;
 using MarketOtomasyon.Models.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,7 @@ namespace MarketOtomasyon
                     List<ProductViewModel> products = new List<ProductViewModel>();
                     try
                     {
+                        var sonuc = new ProductRepo().GetAll(x => x.Barcode == txtSellingBarcode.Text).FirstOrDefault();
                         bool varMi = false;
                         products.AddRange(new ProductRepo().GetAll()
                            .OrderBy(x => x.ProductName)
@@ -43,17 +45,32 @@ namespace MarketOtomasyon
                         foreach (var item in products)
                         {
                             if (item.Barcode == txtSellingBarcode.Text)
-                            {
-                                var sonuc = new ProductRepo().GetAll(x => x.Barcode == txtSellingBarcode.Text).FirstOrDefault();          
+                            {       
                                 varMi = true;
                                 break;
                             }
                         }
                         if (varMi == false)
                         {
-                            MessageBox.Show("Böyle bir ürün bulunamadı");
+                            MessageBox.Show("Böyle bir ürün bulunamadı");   
                             
                         }
+                        Sale sale = new Sale()
+                        {
+                            Id = Guid.NewGuid()
+                        };
+
+                        var sonuc2 = new ProductRepo().GetAll(x => x.Barcode == txtSellingBarcode.Text).FirstOrDefault();
+                        var sonuc3 = new SaleRepo().GetAll().LastOrDefault();
+                        SaleDetail sd = new SaleDetail()
+                        {
+                            Quantity = Convert.ToInt32(nuSellQuantity.Value),
+                            ProductName = sonuc.ProductName,
+                            Id = sonuc3.Id,
+                            Id2 = sonuc2.Id
+                        };
+                        lstSaleDetails.Items.Add(sd);
+
 
 
                     }

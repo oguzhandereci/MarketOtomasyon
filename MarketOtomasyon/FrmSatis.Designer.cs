@@ -32,7 +32,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.nuSellQuantity = new System.Windows.Forms.NumericUpDown();
-            this.lstSaleDetail = new System.Windows.Forms.ListBox();
+            this.lstSaleDetails = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.nuSellQuantity)).BeginInit();
             this.SuspendLayout();
             // 
@@ -71,20 +71,20 @@
             this.nuSellQuantity.Size = new System.Drawing.Size(120, 20);
             this.nuSellQuantity.TabIndex = 5;
             // 
-            // lstSaleDetail
+            // lstSaleDetails
             // 
-            this.lstSaleDetail.FormattingEnabled = true;
-            this.lstSaleDetail.Location = new System.Drawing.Point(352, 19);
-            this.lstSaleDetail.Name = "lstSaleDetail";
-            this.lstSaleDetail.Size = new System.Drawing.Size(216, 290);
-            this.lstSaleDetail.TabIndex = 9;
+            this.lstSaleDetails.FormattingEnabled = true;
+            this.lstSaleDetails.Location = new System.Drawing.Point(352, 19);
+            this.lstSaleDetails.Name = "lstSaleDetails";
+            this.lstSaleDetails.Size = new System.Drawing.Size(216, 290);
+            this.lstSaleDetails.TabIndex = 9;
             // 
             // FrmSatis
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.lstSaleDetail);
+            this.Controls.Add(this.lstSaleDetails);
             this.Controls.Add(this.nuSellQuantity);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -107,6 +107,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.NumericUpDown nuSellQuantity;
-        private System.Windows.Forms.ListBox lstSaleDetail;
+        private System.Windows.Forms.ListBox lstSaleDetails;
     }
 }
