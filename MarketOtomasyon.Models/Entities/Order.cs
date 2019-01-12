@@ -17,7 +17,11 @@ namespace MarketOtomasyon.Models.Entities
             this.Id = Guid.NewGuid();
         }
         public DateTime OrderDate { get; set; } = DateTime.Now;
+        //public decimal totalPrice { get; set; }
+        //public decimal totalKdvRate { get; set; }
 
         public virtual ICollection<OrderDetail> OrderDetails { get; set; } = new HashSet<OrderDetail>();
+
+        public override string ToString() => $"{OrderDate}";
     }
 }

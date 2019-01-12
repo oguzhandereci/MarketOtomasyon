@@ -15,11 +15,10 @@ namespace MarketOtomasyon.Helpers
             {
                 if (item is TextBox)
                     item.Text = string.Empty;
-                //if (item is NumericUpDown)
-                //    item.Text = string.Empty;
+                if (item is NumericUpDown nu)
+                    nu.Value = 0;
                 if (item is ComboBox)
                     item.Text = string.Empty;
-                //if (item is ListBox)
                     
                     
             }
