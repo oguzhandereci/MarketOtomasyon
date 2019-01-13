@@ -26,7 +26,8 @@ namespace MarketOtomasyon
         ClearHelper ch = new ClearHelper();
         private void FrmMalKabul_Load(object sender, EventArgs e)
         {
-
+            cmbOrder.DataSource = new OrderRepo().GetAll();
+            cmbOrder.SelectedIndex = -1;
         }
 
         private void txtBarcodePackage_KeyDown(object sender, KeyEventArgs e)
@@ -148,17 +149,27 @@ namespace MarketOtomasyon
 
             try
             {
-                foreach (var item in lstOrderDetails.Items)
+                foreach (var item in ods)
                 {
                     using (var orderDetailRepo = new OrderDetailRepo())
                     {
                         orderDetailRepo.Insert(item as OrderDetail);
                     }
+                    //var pack = new PackageRepo().GetAll(x => x.Barcode == txtBarcodePackage.Text).FirstOrDefault();
+                    ////var od = new OrderDetailRepo().GetAll(x=>x.Package.Id==pack.Id).FirstOrDefault();
+                    //item.Package.Product.StockQuantity += (item.PackageQuantity * item.PackageType);
+                    //item.Package.Product.StockQuantity = item.Package.Product.StockQuantity + (item.PackageQuantity * item.PackageType);
+                    //int update = new ProductRepo().Update();
                 }
-                ////////////////////sonuc4 hata !!!!
-                var sonuc4 = new ProductRepo().GetAll(x => x.ProductName == txtProduct.Text).FirstOrDefault();
-                sonuc4.StockQuantity = Convert.ToDecimal(sonuc4.StockQuantity) + (tut * nuPackageQuantity.Value);
-                int a = new ProductRepo().Update();
+                //for (int i = 0; i < ods.Count; i++)
+                //{
+                //    ods[i].Package.Product.StockQuantity = Convert.ToDecimal(ods[i].Package.Product.StockQuantity) + (ods[i].PackageType * ods[i].PackageQuantity);
+                //    int a = new ProductRepo().Update();
+                //}
+                //////////////////sonuc4 hata !!!!
+                //var sonuc4 = new ProductRepo().GetAll(x => x.ProductName == txtProduct.Text).FirstOrDefault();
+                //sonuc4.StockQuantity = Convert.ToDecimal(sonuc4.StockQuantity) + (/*//tut//? */nuPackageQuantity.Value);
+                //int a = new ProductRepo().Update();
 
                 MessageBox.Show("Sipariş kayıt işlemi başarılı");
                 /////////ch.FormClearHelper(this);
@@ -171,20 +182,25 @@ namespace MarketOtomasyon
             {
                 new EntityHelper().FindError(ex);
             }
+
+                ch.FormClearHelper(this);
+                lstOrderDetails.Items.Clear();
+
+            }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
         }
 
-        decimal tut;
-
+        List<OrderDetail> ods = new List<OrderDetail>();
         private void btnSepeteEkle_Click(object sender, EventArgs e)
         {
+
             List<Package> packages = new PackageRepo().GetAll();
-            List<OrderDetail> ods = new OrderDetailRepo().GetAll();
             try
             {
+                #region package save
                 var sonuc = new ProductRepo().GetAll(x => x.Barcode == txtBarcodeProduct.Text).FirstOrDefault();
                 var FindPackage = new PackageRepo().GetAll(x => x.Barcode == txtBarcodePackage.Text).FirstOrDefault();
                 if (FindPackage == null)
@@ -207,30 +223,37 @@ namespace MarketOtomasyon
                         }
                         packageRepo.Insert(package);
                     }
+                    var product = new ProductRepo().GetAll(x => x.Barcode == package.Product.Barcode).FirstOrDefault();
+                    var order = new OrderRepo().GetAll(x => x.CreatedDate == (cmbOrder.SelectedItem as Order).CreatedDate).FirstOrDefault();
+                    ods.Add(new OrderDetail()
+                    {
+                        Id = order.Id,
+                        Id2 = package.Id,
+                        PackageQuantity = nuQuantity.Value,
+                        PackageType = package.PackageType,
+                        ProductName = product.ProductName
+                    });
                 }
-                ///////order part
-                Order order = new Order()
+                else
                 {
-                    Id = Guid.NewGuid(),
-                    OrderDate = DateTime.Now
-                };
-                using (var orderRepo = new OrderRepo())
-                {
-                    orderRepo.Insert(order);
+                    var product = new ProductRepo().GetAll(x => x.Barcode == FindPackage.Product.Barcode).FirstOrDefault();
+                    var order = new OrderRepo().GetAll(x => x.CreatedDate == (cmbOrder.SelectedItem as Order).CreatedDate).FirstOrDefault();
+                    ods.Add(new OrderDetail()
+                    {
+                        Id = order.Id,
+                        Id2 = FindPackage.Id,
+                        PackageQuantity = nuQuantity.Value,
+                        PackageType = FindPackage.PackageType,
+                        ProductName = product.ProductName
+                    });
+                    FindPackage.BuyPrice = Convert.ToDecimal(txtBuyPrice.Text);
+                    var pr = new PackageRepo().Update();
+
                 }
-                ///// order details part
-                var sonuc2 = new PackageRepo().GetAll(x => x.Barcode == txtBarcodePackage.Text).FirstOrDefault();
-                var sonuc3 = new OrderRepo().GetAll().LastOrDefault();
-                OrderDetail od = new OrderDetail()
-                {
-                    PackageQuantity = nuQuantity.Value,
-                    PackageType = sonuc2.PackageType,
-                    ProductName = sonuc.ProductName,
-                    Id = sonuc3.Id,
-                    Id2 = sonuc2.Id
-                };
-                tut = tut + od.PackageQuantity;
-                lstOrderDetails.Items.Add(od);
+
+                addList();
+
+                #endregion
 
             }
             catch (DbEntityValidationException ex)
@@ -241,6 +264,27 @@ namespace MarketOtomasyon
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+
+
+        private void addList()
+        {
+            //lstOrderDetails.Items.Clear();
+            lstOrderDetails.Items.AddRange(new PackageRepo().GetAll(x => x.Barcode == txtBarcodePackage.Text).ToArray());
+        }
+
+        private void btnCreateOrder_Click(object sender, EventArgs e)
+        {
+            ///////order part
+            Order order = new Order()
+            {
+            };
+            using (var orderRepo = new OrderRepo())
+            {
+                orderRepo.Insert(order);
+            }
+            cmbOrder.DataSource = new OrderRepo().GetAll();
         }
     }
 }

@@ -26,6 +26,8 @@ namespace MarketOtomasyon.Models.Entities
         [ForeignKey("ProductId")]
         public virtual Product Product { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; } = new HashSet<OrderDetail>();
+
+        public override string ToString() => $"{PackageType} {BuyPrice:c2}";
     }
 
 }

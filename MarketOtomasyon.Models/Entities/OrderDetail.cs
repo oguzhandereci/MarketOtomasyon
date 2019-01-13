@@ -16,6 +16,8 @@ namespace MarketOtomasyon.Models.Entities
         public string ProductName { get; set; }
         public decimal PackageType { get; set; }
         public decimal PackageQuantity { get; set; }
+        public decimal kdvRate { get; set; }
+        public decimal productPrice { get; set; }
 
         [ForeignKey("Id")]
         public virtual Order Order { get; set; }
