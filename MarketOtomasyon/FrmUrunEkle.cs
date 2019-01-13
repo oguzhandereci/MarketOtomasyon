@@ -6,6 +6,7 @@ using MarketOtomasyon.Models.Views;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -60,6 +61,10 @@ namespace MarketOtomasyon
 
 
             }
+            catch (DbEntityValidationException ex)
+            {
+                new EntityHelper().FindError(ex);
+            }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
@@ -94,6 +99,10 @@ namespace MarketOtomasyon
                     ch.FormClearHelper(this, gpAddProduct);
                 }
             }
+            catch (DbEntityValidationException ex)
+            {
+                new EntityHelper().FindError(ex);
+            }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
@@ -118,6 +127,10 @@ namespace MarketOtomasyon
                 cmbCategory.DataSource = categories;
 
                 lstCategories.SelectedItem = null;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                new EntityHelper().FindError(ex);
             }
             catch (Exception ex)
             {
@@ -226,6 +239,10 @@ namespace MarketOtomasyon
                     }
                 }
             }
+            catch (DbEntityValidationException ex)
+            {
+                new EntityHelper().FindError(ex);
+            }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
@@ -267,6 +284,10 @@ namespace MarketOtomasyon
                         }
                     }
                 }
+            }
+            catch (DbEntityValidationException ex)
+            {
+                new EntityHelper().FindError(ex);
             }
             catch (Exception ex)
             {

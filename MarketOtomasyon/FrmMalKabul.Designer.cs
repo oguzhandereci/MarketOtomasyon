@@ -105,7 +105,7 @@
             // 
             // btnMalKabul
             // 
-            this.btnMalKabul.Location = new System.Drawing.Point(316, 171);
+            this.btnMalKabul.Location = new System.Drawing.Point(482, 171);
             this.btnMalKabul.Name = "btnMalKabul";
             this.btnMalKabul.Size = new System.Drawing.Size(93, 46);
             this.btnMalKabul.TabIndex = 7;
@@ -115,9 +115,9 @@
             // 
             // tvProduct
             // 
-            this.tvProduct.Location = new System.Drawing.Point(445, 20);
+            this.tvProduct.Location = new System.Drawing.Point(12, 243);
             this.tvProduct.Name = "tvProduct";
-            this.tvProduct.Size = new System.Drawing.Size(121, 194);
+            this.tvProduct.Size = new System.Drawing.Size(563, 123);
             this.tvProduct.TabIndex = 8;
             // 
             // label1
@@ -185,7 +185,7 @@
             // 
             // btnSepeteEkle
             // 
-            this.btnSepeteEkle.Location = new System.Drawing.Point(217, 171);
+            this.btnSepeteEkle.Location = new System.Drawing.Point(217, 170);
             this.btnSepeteEkle.Name = "btnSepeteEkle";
             this.btnSepeteEkle.Size = new System.Drawing.Size(93, 46);
             this.btnSepeteEkle.TabIndex = 16;
@@ -198,14 +198,14 @@
             this.lstOrderDetails.FormattingEnabled = true;
             this.lstOrderDetails.Location = new System.Drawing.Point(217, 53);
             this.lstOrderDetails.Name = "lstOrderDetails";
-            this.lstOrderDetails.Size = new System.Drawing.Size(192, 108);
+            this.lstOrderDetails.Size = new System.Drawing.Size(358, 108);
             this.lstOrderDetails.TabIndex = 17;
             // 
             // FrmMalKabul
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(587, 241);
+            this.ClientSize = new System.Drawing.Size(587, 378);
             this.Controls.Add(this.lstOrderDetails);
             this.Controls.Add(this.btnSepeteEkle);
             this.Controls.Add(this.label7);

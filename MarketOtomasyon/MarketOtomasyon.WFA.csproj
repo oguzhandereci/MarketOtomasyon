@@ -76,6 +76,7 @@
       <DependentUpon>FrmUrunEkle.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ClearHelper.cs" />
+    <Compile Include="Helpers\EntityHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Entity.Validation;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -38,16 +39,21 @@ namespace MarketOtomasyon
                 try
                 {
                     packages.AddRange(new PackageRepo().GetAll()
-                       .OrderBy(x => x.PackageType)
-                       .Select(x => new PackageViewModel()
-                       {
-                           Id = x.Id,
-                           PackageType = x.PackageType,
-                           Barcode = x.Barcode,
-                           BuyPrice = x.BuyPrice,
-                           ProductId = x.ProductId
-                       }));
-                    if (packages.Count == 0) { MessageBox.Show("Lütfen önce ürün barkodu girin"); return; }
+                        .OrderBy(x => x.PackageType)
+                        .Select(x => new PackageViewModel()
+                        {
+                            Id = x.Id,
+                            PackageType = x.PackageType,
+                            Barcode = x.Barcode,
+                            BuyPrice = x.BuyPrice,
+                            ProductId = x.ProductId
+                        }));
+                    if (packages.Count == 0)
+                    {
+                        MessageBox.Show("Lütfen önce ürün barkodu girin");
+                        return;
+                    }
+
                     var sonuc = new PackageRepo().GetAll(x => x.Barcode == txtBarcodePackage.Text).FirstOrDefault();
                     foreach (var item in packages)
                     {
@@ -62,6 +68,7 @@ namespace MarketOtomasyon
                             break;
                         }
                     }
+
                     if (varMi == false)
                     {
                         MessageBox.Show("Lütfen Ürün barkodunu giriniz");
@@ -70,6 +77,10 @@ namespace MarketOtomasyon
                     }
 
 
+                }
+                catch (DbEntityValidationException ex)
+                {
+                    new EntityHelper().FindError(ex);
                 }
                 catch (Exception ex)
                 {
@@ -119,6 +130,10 @@ namespace MarketOtomasyon
 
 
                 }
+                catch (DbEntityValidationException ex)
+                {
+                    new EntityHelper().FindError(ex);
+                }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
@@ -151,6 +166,10 @@ namespace MarketOtomasyon
                 {
                     lstOrderDetails.Items.Remove(i);
                 }
+            }
+            catch (DbEntityValidationException ex)
+            {
+                new EntityHelper().FindError(ex);
             }
             catch (Exception ex)
             {
@@ -192,7 +211,8 @@ namespace MarketOtomasyon
                 ///////order part
                 Order order = new Order()
                 {
-                    Id = Guid.NewGuid()
+                    Id = Guid.NewGuid(),
+                    OrderDate = DateTime.Now
                 };
                 using (var orderRepo = new OrderRepo())
                 {
@@ -212,6 +232,10 @@ namespace MarketOtomasyon
                 tut = tut + od.PackageQuantity;
                 lstOrderDetails.Items.Add(od);
 
+            }
+            catch (DbEntityValidationException ex)
+            {
+                new EntityHelper().FindError(ex);
             }
             catch (Exception ex)
             {
