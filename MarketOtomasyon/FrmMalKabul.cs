@@ -182,15 +182,13 @@ namespace MarketOtomasyon
             {
                 new EntityHelper().FindError(ex);
             }
-
-                ch.FormClearHelper(this);
-                lstOrderDetails.Items.Clear();
-
-            }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+
+            ch.FormClearHelper(this);
+            lstOrderDetails.Items.Clear();
         }
 
         List<OrderDetail> ods = new List<OrderDetail>();

@@ -107,7 +107,7 @@
             // 
             // btnMalKabul
             // 
-            this.btnMalKabul.Location = new System.Drawing.Point(325, 220);
+            this.btnMalKabul.Location = new System.Drawing.Point(482, 220);
             this.btnMalKabul.Name = "btnMalKabul";
             this.btnMalKabul.Size = new System.Drawing.Size(93, 46);
             this.btnMalKabul.TabIndex = 7;
@@ -117,7 +117,7 @@
             // 
             // tvProduct
             // 
-            this.tvProduct.Location = new System.Drawing.Point(12, 243);
+            this.tvProduct.Location = new System.Drawing.Point(12, 280);
             this.tvProduct.Name = "tvProduct";
             this.tvProduct.Size = new System.Drawing.Size(563, 123);
             this.tvProduct.TabIndex = 8;
@@ -187,7 +187,7 @@
             // 
             // btnSepeteEkle
             // 
-            this.btnSepeteEkle.Location = new System.Drawing.Point(217, 170);
+            this.btnSepeteEkle.Location = new System.Drawing.Point(217, 220);
             this.btnSepeteEkle.Name = "btnSepeteEkle";
             this.btnSepeteEkle.Size = new System.Drawing.Size(93, 46);
             this.btnSepeteEkle.TabIndex = 16;
@@ -198,7 +198,7 @@
             // lstOrderDetails
             // 
             this.lstOrderDetails.FormattingEnabled = true;
-            this.lstOrderDetails.Location = new System.Drawing.Point(226, 102);
+            this.lstOrderDetails.Location = new System.Drawing.Point(217, 89);
             this.lstOrderDetails.Name = "lstOrderDetails";
             this.lstOrderDetails.Size = new System.Drawing.Size(358, 108);
             this.lstOrderDetails.TabIndex = 17;
@@ -225,7 +225,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(587, 351);
+            this.ClientSize = new System.Drawing.Size(587, 415);
             this.Controls.Add(this.cmbOrder);
             this.Controls.Add(this.btnCreateOrder);
             this.Controls.Add(this.lstOrderDetails);
