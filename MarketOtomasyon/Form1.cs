@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace MarketOtomasyon
 {
-    public partial class Form1 : Form
+    public partial class FrmMainMenu : Form
     {
-        public Form1()
+        public FrmMainMenu()
         {
             InitializeComponent();
         }

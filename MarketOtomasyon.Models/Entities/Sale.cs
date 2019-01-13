@@ -8,12 +8,8 @@ using System.Threading.Tasks;
 
 namespace MarketOtomasyon.Models.Entities
 {
-    public class Sale:BaseEntity<Guid>
+    public class Sale:BaseEntity<int>
     {
-        public Sale()
-        {
-            this.Id = Guid.NewGuid();
-        }
         public DateTime SaleDate { get; set; }
 
         public PaymentTypes PaymentTypes { get; set; }

@@ -14,6 +14,8 @@ namespace MarketOtomasyon.Models.ViewModels
         public string Barcode { get; set; }
         public decimal SellPrice { get; set; }
         public decimal? StockQuantity { get; set; }
+        public decimal SubTotalPrice { get; set; }
+        public decimal SellQuantity { get; set; }
 
         public override string ToString() => $"{ProductName} - {SellPrice:c2} - {StockQuantity}";
     }

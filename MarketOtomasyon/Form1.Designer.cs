@@ -1,6 +1,6 @@
 ﻿namespace MarketOtomasyon
 {
-    partial class Form1
+    partial class FrmMainMenu
     {
         /// <summary>
         /// Required designer variable.
@@ -68,15 +68,15 @@
             this.satışİşlemleriToolStripMenuItem.Text = "Satış İşlemleri";
             this.satışİşlemleriToolStripMenuItem.Click += new System.EventHandler(this.satışİşlemleriToolStripMenuItem_Click);
             // 
-            // Form1
+            // FrmMainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 490);
             this.Controls.Add(this.menuStrip1);
             this.IsMdiContainer = true;
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "FrmMainMenu";
+            this.Text = "Main Menu";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
