@@ -21,6 +21,8 @@ namespace MarketOtomasyon.BLL.Repositories
 
         public void SalesBusiness(PaymentTypes pType, List<ProductViewModel> products,decimal paidMoney, decimal totalPrice, out int id, out decimal money)
         {
+            money = 0;
+            id = 0;
             using (var tran = db.Database.BeginTransaction())
             {
                 try
@@ -42,8 +44,9 @@ namespace MarketOtomasyon.BLL.Repositories
                         sale.PaymentTypes = pType;
                         sale.SaleDate = DateTime.Now;
                     }
-                    db.Sales.Add(sale);
-                    db.SaveChanges();
+                    var sr = new SaleRepo().Insert(sale);
+                    //db.Sales.Add(sale);
+                    //db.SaveChanges();
                     id = sale.Id;
 
                     foreach (var item in products)
@@ -72,8 +75,6 @@ namespace MarketOtomasyon.BLL.Repositories
                     MessageBox.Show(ex.Message);
                 }
             }
-                id = int.MinValue;
-            money = Decimal.MaxValue;
         }
     }
 }

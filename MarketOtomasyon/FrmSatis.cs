@@ -27,14 +27,13 @@ namespace MarketOtomasyon
         private PaymentTypes pType;
         private int id;
         private decimal remainderOfMoney,paidMoney;
-        private List<ProductViewModel> products;
+        private List<ProductViewModel> products = new List<ProductViewModel>();
         private void txtSellingBarcode_KeyDown(object sender, KeyEventArgs e)
         {
             if (txtSellingBarcode.Text == null) return;
             if (e.KeyCode == Keys.Enter)
             {
                 {
-                    products = new List<ProductViewModel>();
                     try
                     {
                         var sonuc = new ProductRepo().GetAll(x => x.Barcode == txtSellingBarcode.Text ).FirstOrDefault();
@@ -42,6 +41,19 @@ namespace MarketOtomasyon
                         {
                             _urunVarmi = true;
                             bool varMi = false;
+                            products.AddRange(new ProductRepo().GetAll(x => x.Barcode == txtSellingBarcode.Text)
+                                .OrderBy(x => x.ProductName)
+                                .Select(x => new ProductViewModel()
+                                {
+                                    Id = x.Id,
+                                    Barcode = x.Barcode,
+                                    ProductName = x.ProductName,
+                                    SellPrice = x.SellPrice,
+                                    StockQuantity = x.StockQuantity,
+                                    SubTotalPrice = (x.SellPrice) * (nuSellQuantity.Value),
+                                    SellQuantity = nuSellQuantity.Value
+
+                                }));
                             ProductRepo prodb = new ProductRepo();
                             if (lvBuyList.Items.Count != 0)
                                 foreach (ListViewItem item in lvBuyList.Items)
@@ -127,7 +139,6 @@ namespace MarketOtomasyon
 
         private void btnPayment_Click(object sender, EventArgs e)
         {
-            new SaleRepo().SalesBusiness(pType, products, out this.id, out remainderOfMoney);
             #region stock düşümü
             var prods = new ProductRepo().GetAll();
             foreach (var prod in prods)
