@@ -47,6 +47,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migrations\201901141641467_a1.cs" />
+    <Compile Include="Migrations\201901141641467_a1.Designer.cs">
+      <DependentUpon>201901141641467_a1.cs</DependentUpon>
     <Compile Include="Migrations\201901141648260_a1.cs" />
     <Compile Include="Migrations\201901141648260_a1.Designer.cs">
       <DependentUpon>201901141648260_a1.cs</DependentUpon>
@@ -66,6 +69,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Migrations\201901141641467_a1.resx">
+      <DependentUpon>201901141641467_a1.cs</DependentUpon>
     <EmbeddedResource Include="Migrations\201901141648260_a1.resx">
       <DependentUpon>201901141648260_a1.cs</DependentUpon>
     </EmbeddedResource>

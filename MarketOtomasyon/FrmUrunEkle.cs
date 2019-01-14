@@ -294,5 +294,7 @@ namespace MarketOtomasyon
                 MessageBox.Show(ex.Message);
             }
         }
+
+       
     }
 }
