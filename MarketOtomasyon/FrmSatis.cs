@@ -11,6 +11,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MarketOtomasyon.Models.Enums;
+using iTextSharp.text;
+using System.IO;
+using iTextSharp.text.pdf;
 
 namespace MarketOtomasyon
 {
@@ -127,7 +130,7 @@ namespace MarketOtomasyon
 
         private void btnPayment_Click(object sender, EventArgs e)
         {
-            new SaleRepo().SalesBusiness(pType, products, out this.id, out remainderOfMoney);
+            
             #region stock düşümü
             var prods = new ProductRepo().GetAll();
             foreach (var prod in prods)
@@ -147,6 +150,56 @@ namespace MarketOtomasyon
 
             lblRemainderOfMoney.Text = remainderOfMoney.ToString();
             MessageBox.Show($"Fiş numarasi : {id}, Yine bekleriz..");
+
+
+            ///--------------------pdf için düzenlenecek
+            //using (SaveFileDialog sfd = new SaveFileDialog() { Filter = "PDF File|*.pdf", ValidateNames = true })
+            //    if (sfd.ShowDialog() == DialogResult.OK)
+            //    {
+            //        Document doc = new Document(PageSize.A5.Rotate());
+            //        try
+            //        {
+            //            PdfWriter.GetInstance(doc, new FileStream(sfd.FileName, FileMode.Create));
+            //            doc.Open();
+            //            var urunsatis = SaleViewModel;
+
+
+            //            doc.Add(new Paragraph("Wissen Market A.S \nBesiktas/ISTANBUL \nKuloglu Mh., Barbaros Blv. Yildiz IS Hani No:9"));
+            //            doc.Add(new Paragraph($"\nFis No:{fis.Id}\nTarih:{fis.FisTarihi}\n"));
+            //            doc.Add(new Paragraph("\nÜrün Listesi\n------------------------------------------------------\n"));
+            //            foreach (var item in urunsatis)
+            //            {
+            //                doc.Add(new Paragraph(item.ToString()));
+            //            }
+            //            if (rbNakit.Checked == true)
+            //            {
+            //                if (lblRemainderOfMoney.Text == "Para tam.")
+            //                {
+            //                    doc.Add(new Paragraph($"------------------------------------------------------\nAlınan Para: {txtAlinan.Text}\nPara Üstü:{0:c2}"));
+            //                }
+            //                else
+            //                {
+            //                    doc.Add(new Paragraph($"------------------------------------------------------\nAlınan Para: {txtAlinan.Text}\nPara Üstü:{Convert.ToDecimal(lblRemainderOfMoney.Text):c2}"));
+            //                }
+            //            }
+            //            else if (rbKrediKarti.Checked == true)
+            //            {
+            //                doc.Add(new Paragraph($"------------------------------------------------------\nAlınan Para: {fis.GenelToplam}"));
+            //            }
+
+            //            doc.Add(new Paragraph($"\nÖdeme Yöntemi : {fis.OdemeYontemi.ToString()}"));
+            //            doc.Add(new Paragraph($"\nTutar : {fis.GenelToplam:c2}"));
+            //        }
+            //        catch (Exception ex)
+            //        {
+            //            MessageBox.Show(ex.Message);
+            //        }
+
+            //        finally
+            //        {
+            //            doc.Close();
+            //        }
+            //    }
         }
     }
 }
