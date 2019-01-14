@@ -32,7 +32,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.nuSellQuantity = new System.Windows.Forms.NumericUpDown();
-            this.lstSaleDetails = new System.Windows.Forms.ListBox();
             this.lvBuyList = new System.Windows.Forms.ListView();
             this.prBarcode = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.prName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -93,14 +92,6 @@
             this.nuSellQuantity.Size = new System.Drawing.Size(120, 20);
             this.nuSellQuantity.TabIndex = 5;
             // 
-            // lstSaleDetails
-            // 
-            this.lstSaleDetails.FormattingEnabled = true;
-            this.lstSaleDetails.Location = new System.Drawing.Point(12, 148);
-            this.lstSaleDetails.Name = "lstSaleDetails";
-            this.lstSaleDetails.Size = new System.Drawing.Size(216, 290);
-            this.lstSaleDetails.TabIndex = 9;
-            // 
             // lvBuyList
             // 
             this.lvBuyList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -110,6 +101,7 @@
             this.prUnitPrice,
             this.prSubTotal,
             this.prUnitInStock});
+            this.lvBuyList.FullRowSelect = true;
             this.lvBuyList.Location = new System.Drawing.Point(296, 56);
             this.lvBuyList.Name = "lvBuyList";
             this.lvBuyList.Size = new System.Drawing.Size(492, 203);
@@ -155,6 +147,7 @@
             this.rbCreditCard.TabStop = true;
             this.rbCreditCard.Text = "Credit Card Payment";
             this.rbCreditCard.UseVisualStyleBackColor = true;
+            this.rbCreditCard.CheckedChanged += new System.EventHandler(this.rbChecked);
             // 
             // label3
             // 
@@ -186,6 +179,7 @@
             this.rbCash.TabStop = true;
             this.rbCash.Text = "Cash Payment";
             this.rbCash.UseVisualStyleBackColor = true;
+            this.rbCash.CheckedChanged += new System.EventHandler(this.rbChecked);
             // 
             // label5
             // 
@@ -283,7 +277,7 @@
             this.txtOdenenPara.Name = "txtOdenenPara";
             this.txtOdenenPara.Size = new System.Drawing.Size(120, 20);
             this.txtOdenenPara.TabIndex = 0;
-            this.txtOdenenPara.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSellingBarcode_KeyDown);
+            this.txtOdenenPara.Visible = false;
             // 
             // FrmSatis
             // 
@@ -295,7 +289,6 @@
             this.Controls.Add(this.rbCash);
             this.Controls.Add(this.rbCreditCard);
             this.Controls.Add(this.lvBuyList);
-            this.Controls.Add(this.lstSaleDetails);
             this.Controls.Add(this.nuSellQuantity);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label4);
@@ -328,7 +321,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.NumericUpDown nuSellQuantity;
-        private System.Windows.Forms.ListBox lstSaleDetails;
         private System.Windows.Forms.ListView lvBuyList;
         private System.Windows.Forms.ColumnHeader prBarcode;
         private System.Windows.Forms.ColumnHeader prName;
