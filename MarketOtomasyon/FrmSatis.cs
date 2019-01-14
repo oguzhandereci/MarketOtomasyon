@@ -24,7 +24,7 @@ namespace MarketOtomasyon
             InitializeComponent();
         }
 
-        private bool _urunVarmi = false;
+        //private bool _urunVarmi = false;
         private decimal _totalPrice = 0;
         private double _bagPrice = 0.25;
         private PaymentTypes pType;
@@ -42,8 +42,22 @@ namespace MarketOtomasyon
                         var sonuc = new ProductRepo().GetAll(x => x.Barcode == txtSellingBarcode.Text ).FirstOrDefault();
                         if (sonuc != null)
                         {
-                            _urunVarmi = true;
+                            bool _urunVarmi = true;
                             bool varMi = false;
+                            List<Product> list = new List<Product>();
+                            //list.AddRange(new ProductRepo().GetAll(x => x.Barcode == txtSellingBarcode.Text)
+                            //    .OrderBy(x => x.ProductName)
+                            //    .Select(x => new ProductViewModel()
+                            //    {
+                            //        Id = x.Id,
+                            //        Barcode = x.Barcode,
+                            //        ProductName = x.ProductName,
+                            //        SellPrice = x.SellPrice,
+                            //        StockQuantity = x.StockQuantity,
+                            //        SubTotalPrice = (x.SellPrice) * (nuSellQuantity.Value),
+                            //        SellQuantity = nuSellQuantity.Value
+
+                            //    }));
                             products.AddRange(new ProductRepo().GetAll(x => x.Barcode == txtSellingBarcode.Text)
                                 .OrderBy(x => x.ProductName)
                                 .Select(x => new ProductViewModel()
@@ -57,6 +71,7 @@ namespace MarketOtomasyon
                                     SellQuantity = nuSellQuantity.Value
 
                                 }));
+                            
                             ProductRepo prodb = new ProductRepo();
                             if (lvBuyList.Items.Count != 0)
                                 foreach (ListViewItem item in lvBuyList.Items)
@@ -143,23 +158,23 @@ namespace MarketOtomasyon
         private void btnPayment_Click(object sender, EventArgs e)
         {
             
+            
+            paidMoney = decimal.Parse(txtOdenenPara.Text);
+            new SaleRepo().SalesBusiness(pType, products, paidMoney,_totalPrice, out this.id, out remainderOfMoney,nuSellQuantity.Value);
             #region stock düşümü
             var prods = new ProductRepo().GetAll();
             foreach (var prod in prods)
             {
-                    foreach (ListViewItem item in lvBuyList.Items)
+                foreach (ListViewItem item in lvBuyList.Items)
+                {
+                    if (item.Text == prod.Barcode)
                     {
-                        if(item.Text == prod.Barcode)
-                        {
-                            prod.StockQuantity = prod.StockQuantity - Convert.ToDecimal(item.SubItems[2].Text);
-                        }
+                        prod.StockQuantity = prod.StockQuantity - Convert.ToDecimal(item.SubItems[2].Text);
                     }
+                }
             }
             int a = new ProductRepo().Update();
             #endregion
-            paidMoney = decimal.Parse(txtOdenenPara.Text);
-            new SaleRepo().SalesBusiness(pType, products,paidMoney,_totalPrice, out this.id, out remainderOfMoney);
-
             lblRemainderOfMoney.Text = remainderOfMoney.ToString();
             MessageBox.Show($"Fiş numarasi : {id}, Yine bekleriz..");
 

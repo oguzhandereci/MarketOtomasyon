@@ -18,13 +18,22 @@ namespace MarketOtomasyon.BLL.Repositories
         {
             return base.GetAll().OrderBy(x => x.SaleDate).ToList();
         }
+        public override int Insert(Sale entity)
+        {
+            try
+            {
+                return base.Insert(entity);
+            }
+            catch
+            {
+                throw;
+            }
+        }
 
-        public void SalesBusiness(PaymentTypes pType, List<ProductViewModel> products,decimal paidMoney, decimal totalPrice, out int id, out decimal money)
+        public void SalesBusiness(PaymentTypes pType, List<ProductViewModel> products,decimal paidMoney, decimal totalPrice, out int id, out decimal money,decimal nu)
         {
             money = 0;
             id = 0;
-            using (var tran = db.Database.BeginTransaction())
-            {
                 try
                 {
                     var sale = new Sale();
@@ -45,24 +54,22 @@ namespace MarketOtomasyon.BLL.Repositories
                         sale.SaleDate = DateTime.Now;
                     }
                     var sr = new SaleRepo().Insert(sale);
-                    //db.Sales.Add(sale);
-                    //db.SaveChanges();
-                    id = sale.Id;
-
+                    id= sale.Id;
+                    var iid = new SaleRepo().GetAll(x=>x.Id== sale.Id).FirstOrDefault();
                     foreach (var item in products)
                     {
-                        db.SaleDetails.Add(new SaleDetail()
-                        {
-                            ProductName = item.ProductName,
-                            Quantity = (int)item.SellQuantity,
-                            TotalPrice = item.SubTotalPrice,
-                            Id2 = item.Id,
-                            CreatedDate = DateTime.Now
-                        });
-                        db.SaveChanges();
-                    }
+                        var prod = new ProductRepo().GetAll(x=>x.Id==item.Id).FirstOrDefault();
 
-                    tran.Commit();
+                        SaleDetail sd = new SaleDetail() {
+                            ProductName = prod.ProductName,
+                            Quantity = (int)nu,
+                            TotalPrice =prod.SellPrice*nu,
+                            Id2 = prod.Id,
+                            CreatedDate = DateTime.Now,
+                             Id=Convert.ToInt32(iid.Id)
+                        };
+                        var sdr = new SaleDetailRepo().Insert(sd);
+                    }
                 }
 
                 catch (DbEntityValidationException ex)
@@ -71,10 +78,8 @@ namespace MarketOtomasyon.BLL.Repositories
                 }
                 catch (Exception ex)
                 {
-                    tran.Rollback();
                     MessageBox.Show(ex.Message);
                 }
-            }
         }
     }
 }

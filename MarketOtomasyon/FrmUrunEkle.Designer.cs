@@ -345,7 +345,7 @@ namespace MarketOtomasyon
         private System.Windows.Forms.GroupBox gpAddProduct;
         private System.Windows.Forms.GroupBox gpAddCategory;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ComboBox comboBox1;
+        //private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.ListBox lstCategories;
         private System.Windows.Forms.ListBox lstProducts;
         private System.Windows.Forms.Label label7;
