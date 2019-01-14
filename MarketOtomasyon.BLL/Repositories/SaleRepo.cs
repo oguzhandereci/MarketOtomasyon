@@ -9,7 +9,7 @@ using MarketOtomasyon.Models.ViewModels;
 
 namespace MarketOtomasyon.BLL.Repositories
 {
-    public class SaleRepo: RepositoryBase<Sale, Guid>
+    public class SaleRepo: RepositoryBase<Sale, int>
     {
         public override List<Sale> GetAll()
         {

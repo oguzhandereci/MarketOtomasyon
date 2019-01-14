@@ -85,7 +85,7 @@ namespace MarketOtomasyon.DAL.Migrations
                 "dbo.SaleDetails",
                 c => new
                     {
-                        Id = c.Guid(nullable: false),
+                        Id = c.Int(nullable: false),
                         Id2 = c.Guid(nullable: false),
                         ProductName = c.String(),
                         Quantity = c.Int(nullable: false),
@@ -102,7 +102,7 @@ namespace MarketOtomasyon.DAL.Migrations
                 "dbo.Sales",
                 c => new
                     {
-                        Id = c.Guid(nullable: false),
+                        Id = c.Int(nullable: false, identity: true),
                         SaleDate = c.DateTime(nullable: false),
                         PaymentTypes = c.Int(nullable: false),
                         CreatedDate = c.DateTime(nullable: false),

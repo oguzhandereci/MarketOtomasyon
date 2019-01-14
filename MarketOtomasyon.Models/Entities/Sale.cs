@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MarketOtomasyon.Models.Entities
 {
-    public class Sale:BaseEntity<Guid>
+    public class Sale:BaseEntity<int>
     {
         public DateTime SaleDate { get; set; }
 

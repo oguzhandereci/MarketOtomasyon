@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MarketOtomasyon.BLL.Repositories
 {
-    public class SaleDetailRepo:RepositoryBase<SaleDetail, Guid>
+    public class SaleDetailRepo:RepositoryBase<SaleDetail, int>
     {
         public override List<SaleDetail> GetAll()
         {

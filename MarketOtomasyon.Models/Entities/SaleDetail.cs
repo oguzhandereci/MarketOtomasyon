@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace MarketOtomasyon.Models.Entities
 {
     [Table("SaleDetails")]
-    public class SaleDetail: BaseEntity2<Guid,Guid>
+    public class SaleDetail: BaseEntity2<int,Guid>
     {
         public string ProductName { get; set; }
         public int Quantity { get; set; }
