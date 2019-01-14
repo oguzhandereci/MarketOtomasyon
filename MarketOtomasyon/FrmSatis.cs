@@ -184,7 +184,7 @@ namespace MarketOtomasyon
             lblRemainderOfMoney.Text = remainderOfMoney.ToString();
             MessageBox.Show($"Fiş numarasi : {id}, Yine bekleriz..");
 
-
+            #region pdf
             /// --------------------pdf için düzenlenecek
             Sale sale = new Sale();
             SaleDetail sd = new SaleDetail();
@@ -250,6 +250,7 @@ namespace MarketOtomasyon
                         doc.Close();
                     }
                 }
+            #endregion
         }
     }
 }
