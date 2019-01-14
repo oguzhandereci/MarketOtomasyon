@@ -53,14 +53,17 @@ namespace MarketOtomasyon
                             {
                                 foreach (var product in prodb.GetAll())
                                 {
-                                    ListViewItem pItem = lvBuyList.Items.Add($"{product.Barcode}");
-                                    pItem.SubItems.Add($"{product.ProductName}");
-                                    pItem.SubItems.Add($"{nuSellQuantity.Value}");
-                                    pItem.SubItems.Add($"{product.SellPrice}");
-                                    pItem.SubItems.Add($"{(product.SellPrice) * (nuSellQuantity.Value)}");
-                                    pItem.SubItems.Add($"{product.StockQuantity}");
+                                    if (product.Barcode == txtSellingBarcode.Text)
+                                    {
+                                        ListViewItem pItem = lvBuyList.Items.Add($"{product.Barcode}");
+                                        pItem.SubItems.Add($"{product.ProductName}");
+                                        pItem.SubItems.Add($"{nuSellQuantity.Value}");
+                                        pItem.SubItems.Add($"{product.SellPrice}");
+                                        pItem.SubItems.Add($"{(product.SellPrice) * (nuSellQuantity.Value)}");
+                                        pItem.SubItems.Add($"{product.StockQuantity}");
 
-                                    _totalPrice += ((product.SellPrice) * (nuSellQuantity.Value));
+                                        _totalPrice += ((product.SellPrice) * (nuSellQuantity.Value));
+                                    }
                                 }
                             }
                             else
@@ -77,7 +80,7 @@ namespace MarketOtomasyon
                                                 item.SubItems[1].Text = product.ProductName;
                                                 item.SubItems[2].Text = (Convert.ToUInt32(item.SubItems[2].Text) + nuSellQuantity.Value).ToString();
                                                 item.SubItems[3].Text = product.SellPrice.ToString();
-                                                item.SubItems[4].Text = (product.SellPrice * nuSellQuantity.Value).ToString();
+                                                item.SubItems[4].Text = (Convert.ToDecimal(item.SubItems[4].Text) + (product.SellPrice * nuSellQuantity.Value)).ToString();
                                                 item.SubItems[5].Text = product.StockQuantity.ToString();
 
                                                 _totalPrice += ((product.SellPrice) * (nuSellQuantity.Value));
@@ -112,21 +115,20 @@ namespace MarketOtomasyon
         private void btnPayment_Click(object sender, EventArgs e)
         {
             new SaleRepo().SalesBusiness(pType, products, out this.id, out remainderOfMoney);
+            #region stock düşümü
             var prods = new ProductRepo().GetAll();
             foreach (var prod in prods)
             {
-                if(prod.Barcode==txtSellingBarcode.Text)
-                {
                     foreach (ListViewItem item in lvBuyList.Items)
                     {
-                        if(item.Text == txtSellingBarcode.Text)
+                        if(item.Text == prod.Barcode)
                         {
                             prod.StockQuantity = prod.StockQuantity - Convert.ToDecimal(item.SubItems[2].Text);
                         }
                     }
-                }
             }
             int a = new ProductRepo().Update();
+            #endregion
             lblRemainderOfMoney.Text = remainderOfMoney.ToString();
             MessageBox.Show($"Fiş numarasi : {id}, Yine bekleriz..");
         }
