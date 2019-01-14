@@ -26,6 +26,7 @@ namespace MarketOtomasyon
         ClearHelper ch = new ClearHelper();
         private void FrmMalKabul_Load(object sender, EventArgs e)
         {
+            GetCategoryTreeView();
             cmbOrder.DataSource = new OrderRepo().GetAll();
             cmbOrder.SelectedIndex = -1;
         }
@@ -110,7 +111,11 @@ namespace MarketOtomasyon
                            StockQuantity = x.StockQuantity
 
                        }));
-                    if (products.Count == 0) { MessageBox.Show("Önce Ürün Ekleeyiniz"); frmUrunEkle.ShowDialog(); }
+                    if (products.Count == 0)
+                    {
+                        MessageBox.Show("Önce Ürün Ekleeyiniz");
+                        frmUrunEkle.ShowDialog();
+                    }
                     foreach (var item in products)
                     {
                         if (item.Barcode == txtBarcodeProduct.Text)
@@ -156,8 +161,8 @@ namespace MarketOtomasyon
                         orderDetailRepo.Insert(item as OrderDetail);
                     }
 
-                    var pack = new PackageRepo().GetAll(x=>x.Id==item.Id2).FirstOrDefault();
-                    pack.Product.StockQuantity =Convert.ToDecimal(pack.Product.StockQuantity) +(item.PackageQuantity * item.PackageType);
+                    var pack = new PackageRepo().GetAll(x => x.Id == item.Id2).FirstOrDefault();
+                    pack.Product.StockQuantity = Convert.ToDecimal(pack.Product.StockQuantity) + (item.PackageQuantity * item.PackageType);
                     int update = new PackageRepo().Update();
                 }
 
@@ -196,7 +201,7 @@ namespace MarketOtomasyon
                     ////// package save part
                     Package package = new Package()
                     {
-                        ProductId=sonuc.Id,
+                        ProductId = sonuc.Id,
                         Barcode = txtBarcodePackage.Text,
                         PackageType = nuPackageQuantity.Value,
                         BuyPrice = Convert.ToDecimal(txtBuyPrice.Text),
@@ -211,7 +216,7 @@ namespace MarketOtomasyon
                         }
                         packageRepo.Insert(package);
                     }
-                    var pack = new PackageRepo().GetAll(x=>x.Barcode==txtBarcodePackage.Text).FirstOrDefault();
+                    var pack = new PackageRepo().GetAll(x => x.Barcode == txtBarcodePackage.Text).FirstOrDefault();
                     var product = new ProductRepo().GetAll(x => x.Barcode == pack.Product.Barcode).FirstOrDefault();
                     var order = new OrderRepo().GetAll(x => x.CreatedDate == (cmbOrder.SelectedItem as Order).CreatedDate).FirstOrDefault();
                     ods.Add(new OrderDetail()
@@ -274,6 +279,65 @@ namespace MarketOtomasyon
                 orderRepo.Insert(order);
             }
             cmbOrder.DataSource = new OrderRepo().GetAll();
+        }
+        private void GetCategoryTreeView()
+        {
+            tvProduct.Nodes.Clear();
+            var categories = new CategoryRepo().GetAll().OrderBy(x => x.CategoryName).ToList();
+            foreach (var category in categories)
+            {
+                TreeNode node = new TreeNode(category.CategoryName)
+                {
+                    Tag = category.Id
+                };
+                tvProduct.Nodes.Add(node);
+                if (category.Products.Count > 0)
+                {
+                    List<Product> products = category.Products.OrderBy(x => x.ProductName).ToList();
+                    foreach (var product in products)
+                    {
+                        TreeNode subNode = new TreeNode(product.ProductName)
+                        {
+                            Tag = product.Id
+                        };
+                        node.Nodes.Add(subNode);
+                    }
+                }
+            }
+            tvProduct.ExpandAll();
+        }
+        private void tvProduct_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            var products = new ProductRepo().GetAll();
+            bool varMi = false;
+            try
+            {
+                foreach (Product item in products)
+                {
+                    if (Convert.ToString(item.Id) == (e.Node.Tag).ToString())
+                        varMi = true;
+                }
+                if (varMi)
+                {
+                    var prod = new ProductRepo().GetAll(x => x.Id.ToString() == e.Node.Tag.ToString()).FirstOrDefault();
+                    var pack = new PackageRepo().GetAll(x => x.ProductId == prod.Id).FirstOrDefault();
+                    if (prod == null || pack == null) return;
+                    txtBarcodeProduct.Text = prod.Barcode;
+                    txtProduct.Text = prod.ProductName;
+                    txtCategory.Text = prod.Category.CategoryName;
+                    txtBarcodePackage.Text = pack.Barcode;
+                    nuPackageQuantity.Value = pack.PackageType;
+                }
+                else
+                {
+                    throw new Exception("Sadece ürün seçiniz");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
         }
     }
 }

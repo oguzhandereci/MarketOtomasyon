@@ -29,6 +29,15 @@ namespace MarketOtomasyon
                     MdiParent = this
                 };
                 frmMalKabul.Show();
+                if (frmUrunEkle != null)
+                {
+                    frmUrunEkle.Dispose();
+                }
+                if (frmSatis != null)
+                {
+                    frmSatis.Dispose();
+                }
+
             }
             
         }
@@ -43,6 +52,14 @@ namespace MarketOtomasyon
                     MdiParent = this
                 };
                 frmUrunEkle.Show();
+                if (frmMalKabul != null)
+                {
+                    frmMalKabul.Dispose();
+                }
+                if (frmSatis != null)
+                {
+                    frmSatis.Dispose();
+                }
             }
         }
 
@@ -56,6 +73,14 @@ namespace MarketOtomasyon
                     MdiParent = this
                 };
                 frmSatis.Show();
+                if (frmMalKabul != null)
+                {
+                    frmMalKabul.Dispose();
+                }
+                if (frmUrunEkle != null)
+                {
+                    frmUrunEkle.Dispose();
+                }
             }
 
         }

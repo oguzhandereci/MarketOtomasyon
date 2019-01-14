@@ -117,10 +117,11 @@
             // 
             // tvProduct
             // 
-            this.tvProduct.Location = new System.Drawing.Point(12, 280);
+            this.tvProduct.Location = new System.Drawing.Point(581, 12);
             this.tvProduct.Name = "tvProduct";
-            this.tvProduct.Size = new System.Drawing.Size(563, 123);
+            this.tvProduct.Size = new System.Drawing.Size(146, 254);
             this.tvProduct.TabIndex = 8;
+            this.tvProduct.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvProduct_AfterSelect);
             // 
             // label1
             // 
@@ -225,7 +226,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(587, 415);
+            this.ClientSize = new System.Drawing.Size(748, 300);
             this.Controls.Add(this.cmbOrder);
             this.Controls.Add(this.btnCreateOrder);
             this.Controls.Add(this.lstOrderDetails);

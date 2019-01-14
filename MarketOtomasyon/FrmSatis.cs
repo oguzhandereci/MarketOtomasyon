@@ -42,22 +42,8 @@ namespace MarketOtomasyon
                         var sonuc = new ProductRepo().GetAll(x => x.Barcode == txtSellingBarcode.Text ).FirstOrDefault();
                         if (sonuc != null)
                         {
-                            bool _urunVarmi = true;
                             bool varMi = false;
                             List<Product> list = new List<Product>();
-                            //list.AddRange(new ProductRepo().GetAll(x => x.Barcode == txtSellingBarcode.Text)
-                            //    .OrderBy(x => x.ProductName)
-                            //    .Select(x => new ProductViewModel()
-                            //    {
-                            //        Id = x.Id,
-                            //        Barcode = x.Barcode,
-                            //        ProductName = x.ProductName,
-                            //        SellPrice = x.SellPrice,
-                            //        StockQuantity = x.StockQuantity,
-                            //        SubTotalPrice = (x.SellPrice) * (nuSellQuantity.Value),
-                            //        SellQuantity = nuSellQuantity.Value
-
-                            //    }));
                             products.AddRange(new ProductRepo().GetAll(x => x.Barcode == txtSellingBarcode.Text)
                                 .OrderBy(x => x.ProductName)
                                 .Select(x => new ProductViewModel()
@@ -121,9 +107,7 @@ namespace MarketOtomasyon
                                 }
                             }
 
-
-                            _totalPrice += nuShopBag.Value * (decimal)_bagPrice;
-
+                            //_totalPrice += nuShopBag.Value * (decimal)_bagPrice;
                             lblTotalPrice.Text = $"{_totalPrice:c2}";
                                 
                         }
@@ -154,6 +138,23 @@ namespace MarketOtomasyon
             else if(rb.Name == "rbCreditCard")
                 pType = PaymentTypes.KrediKarti;
         }
+
+        private void nuShopBag_ValueChanged(object sender, EventArgs e)
+        {
+            if (nuShopBag.Value < tut)
+            {
+                _totalPrice -= (tut-nuShopBag.Value) * (decimal)_bagPrice;
+                lblTotalPrice.Text = $"{_totalPrice:c2}";
+            }
+            else if (nuShopBag.Value > tut)
+            {
+                _totalPrice += (nuShopBag.Value-tut) * (decimal)_bagPrice;
+                lblTotalPrice.Text = $"{_totalPrice:c2}";
+            }
+            tut = nuShopBag.Value;
+        }
+        decimal tut=0;
+        
 
         private void btnPayment_Click(object sender, EventArgs e)
         {

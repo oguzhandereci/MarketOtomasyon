@@ -217,6 +217,7 @@
             this.nuShopBag.Name = "nuShopBag";
             this.nuShopBag.Size = new System.Drawing.Size(52, 20);
             this.nuShopBag.TabIndex = 12;
+            this.nuShopBag.ValueChanged += new System.EventHandler(this.nuShopBag_ValueChanged);
             // 
             // btnPayment
             // 
