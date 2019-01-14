@@ -28,6 +28,7 @@ namespace MarketOtomasyon
         private decimal _totalPrice = 0;
         private double _bagPrice = 0.25;
         private PaymentTypes pType;
+        private string pymnt="";
         private int id;
         private decimal remainderOfMoney,paidMoney;
         private List<ProductViewModel> products = new List<ProductViewModel>();
@@ -158,9 +159,13 @@ namespace MarketOtomasyon
 
         private void btnPayment_Click(object sender, EventArgs e)
         {
-            
-            
-            paidMoney = decimal.Parse(txtOdenenPara.Text);
+
+            if (rbCash.Checked == true)
+            {
+                paidMoney = decimal.Parse(txtOdenenPara.Text);
+            }
+
+
             new SaleRepo().SalesBusiness(pType, products, paidMoney,_totalPrice, out this.id, out remainderOfMoney,nuSellQuantity.Value);
             #region stock düşümü
             var prods = new ProductRepo().GetAll();
@@ -188,7 +193,8 @@ namespace MarketOtomasyon
             {
                 id = sale.Id,
                 PaymentTypes = sale.PaymentTypes,
-                 
+                SaleDetailList = saleDetailViewModels
+
             };
             SaleDetailViewModel saleDetailViewModel = new SaleDetailViewModel()
             {
@@ -198,6 +204,7 @@ namespace MarketOtomasyon
                 Quantity = sd.Quantity,
                 TotalPrice = sd.TotalPrice
             };
+            
             using (SaveFileDialog sfd = new SaveFileDialog() { Filter = "PDF File|*.pdf", ValidateNames = true })
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
@@ -206,34 +213,32 @@ namespace MarketOtomasyon
                     {
                         PdfWriter.GetInstance(doc, new FileStream(sfd.FileName, FileMode.Create));
                         doc.Open();
-                        var urunsatis = saleDetailViewModels;
+                        var urunsatis = lvBuyList.Items;
 
 
-                        doc.Add(new Paragraph("Wissen Market A.S \nBesiktas/ISTANBUL \nKuloglu Mh., Barbaros Blv. Yildiz IS Hani No:9"));
-                        doc.Add(new Paragraph($"\nFis No:{sale.Id}\nTarih:{sale.SaleDate}\n"));
-                        doc.Add(new Paragraph("\nÜrün Listesi\n------------------------------------------------------\n"));
+                        doc.Add(new Paragraph("Wissen \nBesiktas/ISTANBUL \nKuloglu Mh., Barbaros Blv. Yildiz IS Hani No:9"));
+                        doc.Add(new Paragraph($"\nFis No:{id}\nTarih:{sale.CreatedDate}\n"));
+                        doc.Add(new Paragraph("\nÜrün Listesi\n------------------------------------------------------\n"));                    
                         foreach (var item in urunsatis)
                         {
+                            //doc.Add(new Paragraph(Convert.ToString(ProductName.ToList())));
                             doc.Add(new Paragraph(item.ToString()));
                         }
                         if (rbCash.Checked == true)
                         {
-                            if (lblRemainderOfMoney.Text == "Para tam.")
-                            {
-                                doc.Add(new Paragraph($"------------------------------------------------------\nAlınan Para: {txtOdenenPara.Text}\nPara Üstü:{0:c2}"));
-                            }
-                            else
-                            {
-                                doc.Add(new Paragraph($"------------------------------------------------------\nAlınan Para: {txtOdenenPara.Text}\nPara Üstü:{Convert.ToDecimal(lblRemainderOfMoney.Text):c2}"));
-                            }
+                            pymnt = "Nakit ";
+                           
+                                doc.Add(new Paragraph($"------------------------------------------------------\nAlinan Para: {txtOdenenPara.Text}\nPara Üstü:{Convert.ToDecimal(lblRemainderOfMoney.Text):c2}"));
+ 
                         }
                         else if (rbCreditCard.Checked == true)
                         {
-                            doc.Add(new Paragraph($"------------------------------------------------------\nAlınan Para: {sd.TotalPrice}"));
+                            pymnt = "Kredi Kartı";
+                            doc.Add(new Paragraph($"------------------------------------------------------\nAlinan Para: {lblTotalPrice.Text}"));
                         }
 
-                        doc.Add(new Paragraph($"\nÖdeme Yöntemi : {sale.PaymentTypes.ToString()}"));
-                        doc.Add(new Paragraph($"\nTutar : {sd.TotalPrice:c2}"));
+                        doc.Add(new Paragraph($"\nÖdeme Yöntemi : {pymnt}"));
+                        doc.Add(new Paragraph($"\nTutar : {lblTotalPrice.Text:c2}"));
                     }
                     catch (Exception ex)
                     {
