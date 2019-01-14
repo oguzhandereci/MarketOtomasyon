@@ -41,31 +41,56 @@ namespace MarketOtomasyon
                         if (sonuc != null)
                         {
                             _urunVarmi = true;
-                            products.AddRange(new ProductRepo().GetAll(x => x.Barcode == txtSellingBarcode.Text)
-                                .OrderBy(x=>x.ProductName)
-                                .Select(x => new ProductViewModel()
+                            bool varMi = false;
+                            ProductRepo prodb = new ProductRepo();
+                            if (lvBuyList.Items.Count != 0)
+                                foreach (ListViewItem item in lvBuyList.Items)
                                 {
-                                    Id = x.Id,
-                                    Barcode = x.Barcode,
-                                    ProductName = x.ProductName,
-                                    SellPrice = x.SellPrice,
-                                    StockQuantity = x.StockQuantity,
-                                    SubTotalPrice = (x.SellPrice)*(nuSellQuantity.Value),
-                                    SellQuantity = nuSellQuantity.Value
-
-                                }));
-                            foreach (var product in products)
+                                    if (item.Text == txtSellingBarcode.Text)
+                                        varMi = true;
+                                }
+                            if (!varMi)
                             {
-                                ListViewItem pItem = lvBuyList.Items.Add($"{product.Barcode}");
-                                pItem.SubItems.Add($"{product.ProductName}");
-                                pItem.SubItems.Add($"{nuSellQuantity.Value}");
-                                pItem.SubItems.Add($"{product.SellPrice}");
-                                pItem.SubItems.Add($"{product.SubTotalPrice}");
-                                pItem.SubItems.Add($"{product.StockQuantity}");
-                                
+                                foreach (var product in prodb.GetAll())
+                                {
+                                    if (product.Barcode == txtSellingBarcode.Text)
+                                    {
+                                        ListViewItem pItem = lvBuyList.Items.Add($"{product.Barcode}");
+                                        pItem.SubItems.Add($"{product.ProductName}");
+                                        pItem.SubItems.Add($"{nuSellQuantity.Value}");
+                                        pItem.SubItems.Add($"{product.SellPrice}");
+                                        pItem.SubItems.Add($"{(product.SellPrice) * (nuSellQuantity.Value)}");
+                                        pItem.SubItems.Add($"{product.StockQuantity}");
 
-                                _totalPrice += product.SubTotalPrice;
+                                        _totalPrice += ((product.SellPrice) * (nuSellQuantity.Value));
+                                    }
+                                }
                             }
+                            else
+                            {
+                                foreach (ListViewItem item in lvBuyList.Items)
+                                {
+                                    var products = new ProductRepo().GetAll();
+                                    foreach (var product in products)
+                                    {
+                                        if (item.Text==product.Barcode)
+                                        {
+                                            if (item.Text == txtSellingBarcode.Text)
+                                            {
+                                                item.SubItems[1].Text = product.ProductName;
+                                                item.SubItems[2].Text = (Convert.ToUInt32(item.SubItems[2].Text) + nuSellQuantity.Value).ToString();
+                                                item.SubItems[3].Text = product.SellPrice.ToString();
+                                                item.SubItems[4].Text = (Convert.ToDecimal(item.SubItems[4].Text) + (product.SellPrice * nuSellQuantity.Value)).ToString();
+                                                item.SubItems[5].Text = product.StockQuantity.ToString();
+
+                                                _totalPrice += ((product.SellPrice) * (nuSellQuantity.Value));
+                                            }
+                                        }
+                                        
+                                    }
+                                }
+                            }
+
 
                             _totalPrice += nuShopBag.Value * (decimal)_bagPrice;
 
@@ -73,8 +98,8 @@ namespace MarketOtomasyon
                                 
                         }
                         else
-                            throw  new Exception($"Sistemde {txtSellingBarcode.Text} numarali bir urun bulunmamaktadir ");
-                        
+                            throw new Exception($"Sistemde {txtSellingBarcode.Text} numarali bir urun bulunmamaktadir ");
+
                     }
                     catch (Exception ex)
                     {
@@ -102,13 +127,28 @@ namespace MarketOtomasyon
 
         private void btnPayment_Click(object sender, EventArgs e)
         {
+            new SaleRepo().SalesBusiness(pType, products, out this.id, out remainderOfMoney);
+            #region stock düşümü
+            var prods = new ProductRepo().GetAll();
+            foreach (var prod in prods)
+            {
+                    foreach (ListViewItem item in lvBuyList.Items)
+                    {
+                        if(item.Text == prod.Barcode)
+                        {
+                            prod.StockQuantity = prod.StockQuantity - Convert.ToDecimal(item.SubItems[2].Text);
+                        }
+                    }
+            }
+            int a = new ProductRepo().Update();
+            #endregion
             paidMoney = decimal.Parse(txtOdenenPara.Text);
             new SaleRepo().SalesBusiness(pType, products,paidMoney,_totalPrice, out this.id, out remainderOfMoney);
 
             lblRemainderOfMoney.Text = remainderOfMoney.ToString();
             MessageBox.Show($"Fiş numarasi : {id}, Yine bekleriz..");
         }
-    }  
+    }
 }
 
 
