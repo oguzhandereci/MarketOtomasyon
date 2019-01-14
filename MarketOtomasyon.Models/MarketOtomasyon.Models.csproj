@@ -63,6 +63,7 @@
     <Compile Include="ViewModels\OrderViewModel.cs" />
     <Compile Include="ViewModels\PackageViewModel.cs" />
     <Compile Include="ViewModels\ProductViewModel.cs" />
+    <Compile Include="ViewModels\SaleDetailViewModel.cs" />
     <Compile Include="ViewModels\SaleViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

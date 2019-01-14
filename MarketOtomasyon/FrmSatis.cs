@@ -180,54 +180,71 @@ namespace MarketOtomasyon
             MessageBox.Show($"Fiş numarasi : {id}, Yine bekleriz..");
 
 
-            ///--------------------pdf için düzenlenecek
-            //using (SaveFileDialog sfd = new SaveFileDialog() { Filter = "PDF File|*.pdf", ValidateNames = true })
-            //    if (sfd.ShowDialog() == DialogResult.OK)
-            //    {
-            //        Document doc = new Document(PageSize.A5.Rotate());
-            //        try
-            //        {
-            //            PdfWriter.GetInstance(doc, new FileStream(sfd.FileName, FileMode.Create));
-            //            doc.Open();
-            //            var urunsatis = SaleViewModel;
+            /// --------------------pdf için düzenlenecek
+            Sale sale = new Sale();
+            SaleDetail sd = new SaleDetail();
+            List<SaleDetailViewModel> saleDetailViewModels = new List<SaleDetailViewModel>();
+            SaleViewModel saleViewModel = new SaleViewModel()
+            {
+                id = sale.Id,
+                PaymentTypes = sale.PaymentTypes,
+                 
+            };
+            SaleDetailViewModel saleDetailViewModel = new SaleDetailViewModel()
+            {
+                id = sd.Id,
+                id2 = sd.Id2,
+                ProductName = sd.ProductName,
+                Quantity = sd.Quantity,
+                TotalPrice = sd.TotalPrice
+            };
+            using (SaveFileDialog sfd = new SaveFileDialog() { Filter = "PDF File|*.pdf", ValidateNames = true })
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    Document doc = new Document(PageSize.A5.Rotate());
+                    try
+                    {
+                        PdfWriter.GetInstance(doc, new FileStream(sfd.FileName, FileMode.Create));
+                        doc.Open();
+                        var urunsatis = saleDetailViewModels;
 
 
-            //            doc.Add(new Paragraph("Wissen Market A.S \nBesiktas/ISTANBUL \nKuloglu Mh., Barbaros Blv. Yildiz IS Hani No:9"));
-            //            doc.Add(new Paragraph($"\nFis No:{fis.Id}\nTarih:{fis.FisTarihi}\n"));
-            //            doc.Add(new Paragraph("\nÜrün Listesi\n------------------------------------------------------\n"));
-            //            foreach (var item in urunsatis)
-            //            {
-            //                doc.Add(new Paragraph(item.ToString()));
-            //            }
-            //            if (rbNakit.Checked == true)
-            //            {
-            //                if (lblRemainderOfMoney.Text == "Para tam.")
-            //                {
-            //                    doc.Add(new Paragraph($"------------------------------------------------------\nAlınan Para: {txtAlinan.Text}\nPara Üstü:{0:c2}"));
-            //                }
-            //                else
-            //                {
-            //                    doc.Add(new Paragraph($"------------------------------------------------------\nAlınan Para: {txtAlinan.Text}\nPara Üstü:{Convert.ToDecimal(lblRemainderOfMoney.Text):c2}"));
-            //                }
-            //            }
-            //            else if (rbKrediKarti.Checked == true)
-            //            {
-            //                doc.Add(new Paragraph($"------------------------------------------------------\nAlınan Para: {fis.GenelToplam}"));
-            //            }
+                        doc.Add(new Paragraph("Wissen Market A.S \nBesiktas/ISTANBUL \nKuloglu Mh., Barbaros Blv. Yildiz IS Hani No:9"));
+                        doc.Add(new Paragraph($"\nFis No:{sale.Id}\nTarih:{sale.SaleDate}\n"));
+                        doc.Add(new Paragraph("\nÜrün Listesi\n------------------------------------------------------\n"));
+                        foreach (var item in urunsatis)
+                        {
+                            doc.Add(new Paragraph(item.ToString()));
+                        }
+                        if (rbCash.Checked == true)
+                        {
+                            if (lblRemainderOfMoney.Text == "Para tam.")
+                            {
+                                doc.Add(new Paragraph($"------------------------------------------------------\nAlınan Para: {txtOdenenPara.Text}\nPara Üstü:{0:c2}"));
+                            }
+                            else
+                            {
+                                doc.Add(new Paragraph($"------------------------------------------------------\nAlınan Para: {txtOdenenPara.Text}\nPara Üstü:{Convert.ToDecimal(lblRemainderOfMoney.Text):c2}"));
+                            }
+                        }
+                        else if (rbCreditCard.Checked == true)
+                        {
+                            doc.Add(new Paragraph($"------------------------------------------------------\nAlınan Para: {sd.TotalPrice}"));
+                        }
 
-            //            doc.Add(new Paragraph($"\nÖdeme Yöntemi : {fis.OdemeYontemi.ToString()}"));
-            //            doc.Add(new Paragraph($"\nTutar : {fis.GenelToplam:c2}"));
-            //        }
-            //        catch (Exception ex)
-            //        {
-            //            MessageBox.Show(ex.Message);
-            //        }
+                        doc.Add(new Paragraph($"\nÖdeme Yöntemi : {sale.PaymentTypes.ToString()}"));
+                        doc.Add(new Paragraph($"\nTutar : {sd.TotalPrice:c2}"));
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
 
-            //        finally
-            //        {
-            //            doc.Close();
-            //        }
-            //    }
+                    finally
+                    {
+                        doc.Close();
+                    }
+                }
         }
     }
 }

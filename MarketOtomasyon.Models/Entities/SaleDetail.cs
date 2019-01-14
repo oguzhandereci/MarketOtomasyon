@@ -17,7 +17,6 @@ namespace MarketOtomasyon.Models.Entities
         public int Quantity { get; set; }
         public decimal TotalPrice { get; set; }
 
-
         [ForeignKey("Id")]
         public virtual Sale Sale { get; set; }
         [ForeignKey("Id2")]

@@ -1,4 +1,4 @@
-﻿using MarketOtomasyon.Models.Enums;
+﻿    using MarketOtomasyon.Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +12,8 @@ namespace MarketOtomasyon.Models.ViewModels
         public int id { get; set; }
         public DateTime SaleDate { get; set; } = DateTime.Now;
         public PaymentTypes PaymentTypes { get; set; }
-        //public decimal totalPrice { get; set; }
-        //public decimal totalKdvRate { get; set; }
+        public List<SaleDetailViewModel> SaleDetailList { get; set; }
 
-        public override string ToString() => $"{SaleDate}";
+        public override string ToString() => $"{SaleDetailList}";
     }
 }
