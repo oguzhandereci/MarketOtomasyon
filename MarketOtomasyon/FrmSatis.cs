@@ -26,7 +26,7 @@ namespace MarketOtomasyon
         private double _bagPrice = 0.25;
         private PaymentTypes pType;
         private int id;
-        private decimal remainderOfMoney;
+        private decimal remainderOfMoney,paidMoney;
         private List<ProductViewModel> products;
         private void txtSellingBarcode_KeyDown(object sender, KeyEventArgs e)
         {
@@ -37,7 +37,7 @@ namespace MarketOtomasyon
                     products = new List<ProductViewModel>();
                     try
                     {
-                        var sonuc = new ProductRepo().GetAll(x => x.Barcode == txtSellingBarcode.Text && x.StockQuantity > 0).FirstOrDefault();
+                        var sonuc = new ProductRepo().GetAll(x => x.Barcode == txtSellingBarcode.Text ).FirstOrDefault();
                         if (sonuc != null)
                         {
                             _urunVarmi = true;
@@ -70,10 +70,7 @@ namespace MarketOtomasyon
                             _totalPrice += nuShopBag.Value * (decimal)_bagPrice;
 
                             lblTotalPrice.Text = $"{_totalPrice:c2}";
-                            if (rbCash.Checked)
-                                pType = PaymentTypes.Nakit;
-                            else if (rbCreditCard.Checked)
-                                pType = PaymentTypes.KrediKarti;
+                                
                         }
                         else
                             throw  new Exception($"Sistemde {txtSellingBarcode.Text} numarali bir urun bulunmamaktadir ");
@@ -87,9 +84,26 @@ namespace MarketOtomasyon
             }
 
         }
+
+        private void rbChecked(object sender, EventArgs e)
+        {
+            RadioButton rb = sender as RadioButton;
+            if (rb.Name == "rbCash")
+            {
+                pType = PaymentTypes.Nakit;
+                label7.Visible = true;
+                label8.Visible = true;
+                txtOdenenPara.Visible = true;
+                lblRemainderOfMoney.Visible = true;
+            }
+            else if(rb.Name == "rbCreditCard")
+                pType = PaymentTypes.KrediKarti;
+        }
+
         private void btnPayment_Click(object sender, EventArgs e)
         {
-            new SaleRepo().SalesBusiness(pType, products, out this.id, out remainderOfMoney);
+            paidMoney = decimal.Parse(txtOdenenPara.Text);
+            new SaleRepo().SalesBusiness(pType, products,paidMoney,_totalPrice, out this.id, out remainderOfMoney);
 
             lblRemainderOfMoney.Text = remainderOfMoney.ToString();
             MessageBox.Show($"Fiş numarasi : {id}, Yine bekleriz..");
