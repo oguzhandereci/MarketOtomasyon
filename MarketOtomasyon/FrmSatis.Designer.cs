@@ -110,6 +110,7 @@
             this.prUnitPrice,
             this.prSubTotal,
             this.prUnitInStock});
+            this.lvBuyList.FullRowSelect = true;
             this.lvBuyList.Location = new System.Drawing.Point(296, 56);
             this.lvBuyList.Name = "lvBuyList";
             this.lvBuyList.Size = new System.Drawing.Size(492, 203);
