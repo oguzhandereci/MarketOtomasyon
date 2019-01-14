@@ -155,24 +155,14 @@ namespace MarketOtomasyon
                     {
                         orderDetailRepo.Insert(item as OrderDetail);
                     }
-                    //var pack = new PackageRepo().GetAll(x => x.Barcode == txtBarcodePackage.Text).FirstOrDefault();
-                    ////var od = new OrderDetailRepo().GetAll(x=>x.Package.Id==pack.Id).FirstOrDefault();
-                    //item.Package.Product.StockQuantity += (item.PackageQuantity * item.PackageType);
-                    //item.Package.Product.StockQuantity = item.Package.Product.StockQuantity + (item.PackageQuantity * item.PackageType);
-                    //int update = new ProductRepo().Update();
+
+                    var pack = new PackageRepo().GetAll(x=>x.Id==item.Id2).FirstOrDefault();
+                    pack.Product.StockQuantity =Convert.ToDecimal(pack.Product.StockQuantity) +(item.PackageQuantity * item.PackageType);
+                    int update = new PackageRepo().Update();
                 }
-                //for (int i = 0; i < ods.Count; i++)
-                //{
-                //    ods[i].Package.Product.StockQuantity = Convert.ToDecimal(ods[i].Package.Product.StockQuantity) + (ods[i].PackageType * ods[i].PackageQuantity);
-                //    int a = new ProductRepo().Update();
-                //}
-                //////////////////sonuc4 hata !!!!
-                //var sonuc4 = new ProductRepo().GetAll(x => x.ProductName == txtProduct.Text).FirstOrDefault();
-                //sonuc4.StockQuantity = Convert.ToDecimal(sonuc4.StockQuantity) + (/*//tut//? */nuPackageQuantity.Value);
-                //int a = new ProductRepo().Update();
 
                 MessageBox.Show("Sipariş kayıt işlemi başarılı");
-                /////////ch.FormClearHelper(this);
+                ch.FormClearHelper(this);
                 for (int i = 0; i < lstOrderDetails.Items.Count; i++)
                 {
                     lstOrderDetails.Items.Remove(i);
@@ -206,7 +196,7 @@ namespace MarketOtomasyon
                     ////// package save part
                     Package package = new Package()
                     {
-                        ProductId = sonuc.Id,
+                        ProductId=sonuc.Id,
                         Barcode = txtBarcodePackage.Text,
                         PackageType = nuPackageQuantity.Value,
                         BuyPrice = Convert.ToDecimal(txtBuyPrice.Text),
@@ -221,14 +211,15 @@ namespace MarketOtomasyon
                         }
                         packageRepo.Insert(package);
                     }
-                    var product = new ProductRepo().GetAll(x => x.Barcode == package.Product.Barcode).FirstOrDefault();
+                    var pack = new PackageRepo().GetAll(x=>x.Barcode==txtBarcodePackage.Text).FirstOrDefault();
+                    var product = new ProductRepo().GetAll(x => x.Barcode == pack.Product.Barcode).FirstOrDefault();
                     var order = new OrderRepo().GetAll(x => x.CreatedDate == (cmbOrder.SelectedItem as Order).CreatedDate).FirstOrDefault();
                     ods.Add(new OrderDetail()
                     {
                         Id = order.Id,
-                        Id2 = package.Id,
+                        Id2 = pack.Id,
                         PackageQuantity = nuQuantity.Value,
-                        PackageType = package.PackageType,
+                        PackageType = pack.PackageType,
                         ProductName = product.ProductName
                     });
                 }
