@@ -32,6 +32,7 @@ namespace MarketOtomasyon
         private int id;
         private decimal remainderOfMoney,paidMoney;
         private List<ProductViewModel> products = new List<ProductViewModel>();
+        private List<Product> products2 = new List<Product>();
         private void txtSellingBarcode_KeyDown(object sender, KeyEventArgs e)
         {
             if (txtSellingBarcode.Text == null) return;
@@ -44,7 +45,6 @@ namespace MarketOtomasyon
                         if (sonuc != null)
                         {
                             bool varMi = false;
-                            List<Product> list = new List<Product>();
                             products.AddRange(new ProductRepo().GetAll(x => x.Barcode == txtSellingBarcode.Text)
                                 .OrderBy(x => x.ProductName)
                                 .Select(x => new ProductViewModel()
@@ -58,7 +58,6 @@ namespace MarketOtomasyon
                                     SellQuantity = nuSellQuantity.Value
 
                                 }));
-                            
                             ProductRepo prodb = new ProductRepo();
                             if (lvBuyList.Items.Count != 0)
                                 foreach (ListViewItem item in lvBuyList.Items)
@@ -218,12 +217,16 @@ namespace MarketOtomasyon
 
                         doc.Add(new Paragraph("Wissen \nBesiktas/ISTANBUL \nKuloglu Mh., Barbaros Blv. Yildiz IS Hani No:9"));
                         doc.Add(new Paragraph($"\nFis No:{id}\nTarih:{sale.CreatedDate}\n"));
-                        doc.Add(new Paragraph("\nÜrün Listesi\n------------------------------------------------------\n"));                    
-                        foreach (var item in urunsatis)
+                        doc.Add(new Paragraph("\nÜrün Listesi\n------------------------------------------------------\n"));
+                        foreach (var item in products)
                         {
-                            //doc.Add(new Paragraph(Convert.ToString(ProductName.ToList())));
                             doc.Add(new Paragraph(item.ToString()));
                         }
+                        //foreach (var item in urunsatis)
+                        //{
+                        //    //doc.Add(new Paragraph(Convert.ToString(ProductName.ToList())));
+                        //    doc.Add(new Paragraph(item.ToString()));
+                        //}
                         if (rbCash.Checked == true)
                         {
                             pymnt = "Nakit ";
